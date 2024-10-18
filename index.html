@@ -3,34 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Portfolio</title>
+    <title>Interactive Portfolio with Menu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header id="main-header">
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="contact.html">Contact</a></li> <!-- 외부 페이지로 이동 -->
+            </ul>
+        </nav>
         <h1>Welcome to My Portfolio</h1>
         <p>Explore my projects with smooth animations and minimalistic design.</p>
     </header>
 
+    <!-- 포트폴리오 섹션 -->
     <section id="portfolio">
-        <div class="project" data-animation="fade-in">
+        <h2>Projects</h2>
+        <div class="project">
             <a href="project1.html">
                 <img src="project1.jpg" alt="Project 1">
                 <h3>Project 1</h3>
             </a>
         </div>
-        <div class="project" data-animation="fade-in">
+        <div class="project">
             <a href="project2.html">
                 <img src="project2.jpg" alt="Project 2">
                 <h3>Project 2</h3>
             </a>
         </div>
-        <div class="project" data-animation="fade-in">
-            <a href="project3.html">
-                <img src="project3.jpg" alt="Project 3">
-                <h3>Project 3</h3>
-            </a>
-        </div>
+    </section>
+
+    <!-- About 섹션 -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>This section can include information about yourself, your skills, and your experience.</p>
     </section>
 
     <footer>

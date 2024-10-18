@@ -92,3 +92,48 @@ footer {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* 네비게이션 메뉴 스타일 */
+nav {
+    background-color: #111;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #f0a500;
+}
+
+/* 페이지 섹션 스타일 */
+section {
+    padding: 50px 0;
+    text-align: center;
+}
+
+#main-header {
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
