@@ -150,3 +150,7 @@ app.get('/logout', (req, res) => {
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
 });
+
+mongoose.connect('mongodb://localhost:27017/portfolioDB', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log(err));
