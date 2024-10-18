@@ -95,8 +95,13 @@ footer {
 
 /* 네비게이션 메뉴 스타일 */
 nav {
+    position: fixed; /* 화면 상단에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 전체 화면 너비를 차지 */
     background-color: #111;
-    padding: 10px 0;
+    padding: 15px 0;
+    z-index: 1000; /* 메뉴가 다른 요소보다 위에 표시되도록 설정 */
 }
 
 nav ul {
@@ -108,7 +113,7 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0 20px;
 }
 
 nav ul li a {
@@ -122,13 +127,9 @@ nav ul li a:hover {
     color: #f0a500;
 }
 
-/* 페이지 섹션 스타일 */
-section {
-    padding: 50px 0;
-    text-align: center;
-}
-
+/* 페이지 콘텐츠에 네비게이션 바가 겹치지 않도록 상단 여백 추가 */
 #main-header {
+    padding-top: 120px; /* 네비게이션 바 높이만큼 여백 추가 */
     height: 100vh;
     background-color: #333;
     color: white;
@@ -136,4 +137,32 @@ section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+#portfolio, #about {
+    padding-top: 100px; /* 각 섹션 시작 부분도 네비게이션 바와 겹치지 않게 여백 추가 */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #111;
+    color: white;
+}
+
+/* 프로젝트 섹션 */
+.project {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.project img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.project:hover img {
+    transform: scale(1.05);
 }
