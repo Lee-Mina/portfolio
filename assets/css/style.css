@@ -1,167 +1,81 @@
-/* 기본 스타일 */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
-header {
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.header {
+    background: url('hero-image.jpg') no-repeat center center/cover;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #111;
-    color: white;
     text-align: center;
-    flex-direction: column;
-}
-
-header h1 {
-    font-size: 48px;
-    margin: 0;
-    opacity: 0;
-    transform: translateY(50px);
-    animation: fade-in 1.5s ease-out forwards;
-}
-
-header p {
-    font-size: 18px;
-    opacity: 0;
-    animation: fade-in 2s ease-out forwards;
-    animation-delay: 0.5s;
-}
-
-/* 프로젝트 갤러리 */
-#portfolio {
-    display: flex;
-    justify-content: center;
-    padding: 50px 0;
-    gap: 40px;
-}
-
-.project {
-    width: 300px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.6s ease-out;
-}
-
-.project img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.project h3 {
-    text-align: center;
-    margin-top: 10px;
-}
-
-/* 프로젝트 호버 효과 */
-.project:hover img {
-    transform: scale(1.05);
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #111;
     color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
 }
 
-/* 애니메이션 */
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.intro h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
 }
 
-[data-animation="fade-in"].visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-/* 네비게이션 메뉴 스타일 */
-nav {
-    position: fixed; /* 화면 상단에 고정 */
-    top: 0;
-    left: 0;
-    width: 100%; /* 전체 화면 너비를 차지 */
-    background-color: #111;
-    padding: 15px 0;
-    z-index: 1000; /* 메뉴가 다른 요소보다 위에 표시되도록 설정 */
+.nav {
+    margin-top: 1em;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    margin: 0 20px;
-}
-
-nav ul li a {
+.nav a {
     color: white;
+    margin: 0 10px;
     text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
+    font-size: 1.2em;
 }
 
-nav ul li a:hover {
-    color: #f0a500;
+.section {
+    padding: 50px;
+    text-align: center;
 }
 
-/* 페이지 콘텐츠에 네비게이션 바가 겹치지 않도록 상단 여백 추가 */
-#main-header {
-    padding-top: 120px; /* 네비게이션 바 높이만큼 여백 추가 */
-    height: 100vh;
+.about {
+    background-color: #fff;
+}
+
+.projects {
+    background-color: #f1f1f1;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.project-item {
+    background-color: #ddd;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.footer {
     background-color: #333;
     color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-#portfolio, #about {
-    padding-top: 100px; /* 각 섹션 시작 부분도 네비게이션 바와 겹치지 않게 여백 추가 */
-}
-
-footer {
     text-align: center;
-    padding: 20px;
-    background-color: #111;
-    color: white;
+    padding: 10px;
 }
 
-/* 프로젝트 섹션 */
-.project {
-    width: 300px;
-    margin: 0 auto;
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.project img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.project:hover img {
-    transform: scale(1.05);
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }

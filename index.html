@@ -1,83 +1,40 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; worker-src 'self'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내가 이거 완성하고만다</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>디자인 포트폴리오</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-    <!-- 최상단에 고정된 네비게이션 바 -->
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-
-    <!-- 로그인 섹션 -->
-    <section id="login-section">
-        <h1>Login</h1>
-        <form action="/login" method="post">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" required>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required>
-            <button type="submit">Login</button>
-        </form>
-    </section>
-
-    <!-- 이미지 업로드 섹션 -->
-    <section id="upload-section">
-        <h1>Upload an Image</h1>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" required>
-            <button type="submit">Upload</button>
-        </form>
-        <a href="/logout">Logout</a>
-    </section>
-
-    <!-- 페이지 내용 시작 -->
-    <header id="main-header">
-        <h1>Welcome to My Portfolio</h1>
-        <p>Explore my projects with smooth animations and minimalistic design.</p>
+    <header class="header">
+        <div class="intro">
+            <h1>안녕하세요, 디자이너입니다</h1>
+            <p>포트폴리오를 통해 제 작업을 소개합니다</p>
+        </div>
+        <nav class="nav">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
-    <!-- 포트폴리오 섹션 -->
-    <section id="portfolio">
-        <h2>Projects</h2>
-        <div class="project">
-            <a href="project1.html">
-                <img src="project1.jpg" alt="Project 1">
-                <h3>Project 1</h3>
-            </a>
-        </div>
-        <div class="project">
-            <a href="project2.html">
-                <img src="project2.jpg" alt="Project 2">
-                <h3>Project 2</h3>
-            </a>
-        </div>
-    </section>
-
-    <!-- About 섹션 -->
-    <section id="about">
+    <section id="about" class="section about fade-in">
         <h2>About Me</h2>
-        <p>This section can include information about yourself, your skills, and your experience.</p>
+        <p>간단한 자기 소개와 디자인 철학을 적어보세요.</p>
     </section>
-
-    <!-- 푸터 -->
-    <footer>
-        <p>Contact me: <a href="srs000619@naver.com">srs000619@naver.com</a></p>
+    
+    <section id="projects" class="section projects fade-in">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-item">프로젝트 1</div>
+            <div class="project-item">프로젝트 2</div>
+            <div class="project-item">프로젝트 3</div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <p>&copy; 2024 디자인 포트폴리오</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
-
 </html>
