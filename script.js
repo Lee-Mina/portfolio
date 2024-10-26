@@ -1,20 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const faders = document.querySelectorAll(".fade-in");
+    const sections = document.querySelectorAll(".section");
 
-    const appearOptions = {
-        threshold: 0.5,  // 50%가 뷰포트에 보일 때 애니메이션 실행
-        rootMargin: "0px 0px -50px 0px"
+    const options = {
+        threshold: 0.2,
+        rootMargin: "0px 0px -100px 0px"
     };
 
     const appearOnScroll = new IntersectionObserver(function (entries, observer) {
         entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
+            if (entry.isIntersecting) {
+                entry.target.classList.add("appear");
+                observer.unobserve(entry.target);
+            }
         });
-    }, appearOptions);
+    }, options);
 
-    faders.forEach(fader => {
-        appearOnScroll.observe(fader);
+    sections.forEach(section => {
+        section.classList.add("fade-in"); // 초기 상태는 페이드 아웃
+        appearOnScroll.observe(section);
     });
 });
