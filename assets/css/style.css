@@ -1,57 +1,38 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff;
-    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
-.hero-section {
-    height: 100vh;
-    background: url('hero-image.jpg') no-repeat center center/cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+header {
+    background-color: #333;
     color: white;
-}
-
-.hero-section .content h1 {
-    font-size: 3em;
-    margin-bottom: 0.5em;
-}
-
-.section {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     padding: 20px;
-}
-
-.section .content h2 {
-    font-size: 2.5em;
-}
-
-.footer {
     text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+section {
     padding: 20px;
-    font-size: 0.9em;
-    color: #666;
+    text-align: center;
 }
 
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.appear {
-    opacity: 1;
-    transform: translateY(0);
+section#projects img {
+    width: 200px;
+    height: auto;
 }
