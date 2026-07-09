@@ -10,6 +10,8 @@ Figma "주연테크 리브랜딩" 스타일 가이드 기준. **클래스명은 
 | `_wg/import/header.html` | `/_wg/import/header.html` | 한 줄 헤더(로고·주메뉴·아이콘) |
 | `_wg/css/header.css` | `/_wg/css/header.css` | 헤더 + 모바일 전체메뉴 + 하단 네비 스타일 |
 | `_wg/import/bottomnav.html` | `/_wg/import/bottomnav.html` | 모바일 전용 하단 고정 네비 |
+| `_wg/css/footer.css` | `/_wg/css/footer.css` | 푸터(토큰 적용, 클래스명 유지, 배경 png 제거) |
+| `_wg/css/jy-prdcard.css` | `/_wg/css/jy-prdcard.css` | 상품 카드(라운드16·이미지1:1·뱃지 pill·상품명 2줄) |
 
 ## 적용 순서
 1. **토큰 로드** — `base.html`(또는 공통 head) 최상단에 한 줄 추가:
@@ -31,3 +33,8 @@ Figma "주연테크 리브랜딩" 스타일 가이드 기준. **클래스명은 
 - 주메뉴는 `category.html`이 `#category-lnb .d1-wrap` 구조라고 가정하고 스타일링했습니다.
   실제 출력이 다르면 `header.css`의 `.hd-nav a` 셀렉터만 실제 메뉴 링크에 맞춰 조정하세요.
 - 장바구니 뱃지(`#hdCartCount` / `#jyBnCart`)는 카페24 장바구니 수량을 넣으면 표시됩니다(비어 있으면 자동 숨김).
+- **상품 카드**(`jy-prdcard.css`)는 `.prdList` 공통 클래스를 기준으로 합니다. 카테고리/뱃지를 쓰려면
+  카드 마크업에 `<p class="jy-cate">MONITOR</p>`, `<span class="jy-badge best">BEST</span>`를 추가하세요.
+  실제 `prdList.html`의 상품명/가격/스펙 클래스가 다르면 `.name/.price/.spec` 셀렉터만 맞추면 됩니다.
+- **푸터**(`footer.css`)는 클래스명·구조 그대로, 색/폰트/구분선만 토큰화했습니다.
+  head에서 기존 `footer.css` 대신 이 파일을 로드하면 됩니다.

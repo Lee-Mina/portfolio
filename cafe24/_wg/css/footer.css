@@ -1,0 +1,106 @@
+@charset "utf-8";
+/* ============================================================
+   푸터  ·  footer.css   (스타일 가이드 토큰 적용)
+   · 클래스명·구조는 기존 그대로. 색/폰트/구분선만 토큰화.
+   · 배경 바(png) 이미지들을 CSS 선으로 대체 → 이미지 요청 감소(용량↓)
+   ============================================================ */
+
+/* ── 공통 ── */
+.footer_wrap{position:relative;width:100%;margin:100px auto 0;padding:56px 0 0;
+  background:var(--warm-white);color:var(--ink-2);font-family:var(--font)}
+.footer_wrap:after{content:"";display:block;clear:both}
+#footer{font-size:var(--t-caption);line-height:1.6}
+#footer ul{margin:0 0 10px}
+#footer ._part{height:100%;min-height:220px;padding:5px 0;background:none}
+#footer h4.title{margin:0 0 16px;font-size:var(--t-body-m);font-weight:var(--fw-semibold);
+  color:var(--ink);letter-spacing:-.01em}
+#footer line{display:block;width:100%;height:0;margin:32px 0;border-top:1px solid var(--line)}
+#footer .info{color:var(--muted)}
+#footer li,#footer li a{color:var(--ink-2)}
+#footer li a:hover{color:var(--ink)}
+#footer strong{color:var(--ink);font-weight:var(--fw-medium)}
+#footer i{position:relative;top:2px;margin:0 3px 0 0;font-size:var(--t-body-m)}
+@media all and (max-width:700px){ #footer ._part{min-height:auto} #footer line{display:none} }
+
+/* ── 하단 메뉴 ── */
+#footer .footer_menu{display:block;margin:0 0 30px;padding:0 2% 20px;border-bottom:1px solid var(--line)}
+#footer .footer_menu ul{margin:0}
+#footer .footer_menu li{display:inline-block;position:relative;padding:5px 15px}
+#footer .footer_menu li:before{content:"";position:absolute;left:0;top:50%;width:1px;height:11px;
+  margin-top:-5px;background:var(--line)}
+#footer .footer_menu li:first-child:before{display:none}
+#footer .footer_menu li:first-child{padding-left:0}
+#footer .footer_menu li a{font-size:var(--t-body-s);color:var(--ink-2)}
+#footer .footer_menu li a:hover{color:var(--ink);text-decoration:none}
+@media all and (max-width:700px){ #footer .footer_menu{text-align:center} }
+
+/* ── 고객센터 ── */
+#footer .oper_time{display:inline-block;width:25%;margin:0 0 0 2%;vertical-align:top}
+#footer .oper_time li{min-height:0}
+#footer .oper_time .phone{margin:0 0 12px;font-weight:var(--fw-bold);font-size:var(--t-price-s);
+  color:var(--ink);letter-spacing:-.01em}
+#footer .oper_time strong{margin:0 10px 0 0}
+#footer .oper_time .right a{display:inline-block;width:100%;max-width:60%;margin:0 0 6px}
+#footer .oper_time .right a:first-child{display:none}
+@media all and (max-width:700px){
+  #footer .oper_time{width:94%;margin:0 3% 15px 3%;padding-bottom:15px;border-bottom:1px solid var(--line)}
+  #footer .oper_time .right a:first-child{display:inline-block}
+  #footer .oper_time .left{float:left;width:60%} #footer .oper_time .right{float:right;width:40%}
+  #footer .oper_time .right a{max-width:90%}
+}
+
+/* ── 계좌안내 ── */
+#footer .bank_info{display:inline-block;width:25%;margin:0 0 0 2%;vertical-align:top}
+#footer .bank_info strong{margin:0 10px 0 0}
+#footer .bank_info .alter{display:inline-block;margin:0 20px 0 0;padding:7px 10px;border:1px solid var(--line);
+  border-radius:var(--r-btn);background:#fff;font-size:var(--t-caption)}
+@media all and (max-width:700px){
+  #footer .bank_info{width:94%;margin:0 3% 15px 3%;padding-bottom:20px;border-bottom:1px solid var(--line)}
+}
+
+/* ── 배송안내 ── */
+#footer .footer_delivery{display:inline-block;width:42.8%;margin:0 0 0 2%;vertical-align:top}
+#footer .footer_delivery strong,#footer .footer_delivery span{margin:0 10px 0 0}
+#footer .footer_delivery .v_returnAdd1{word-break:keep-all}
+@media all and (max-width:700px){
+  #footer .footer_delivery{width:94%;margin:0 3% 15px 3%;padding-bottom:15px;border-bottom:1px solid var(--line)}
+}
+
+/* ── 회사정보 ── */
+#footer .footer_company{float:left;width:52.3%;margin:0 2% 15px 2%}
+#footer .footer_company li:after{content:"";display:block;clear:both}
+#footer .footer_company strong{float:left;width:140px;font-weight:var(--fw-regular);color:var(--ink-2)}
+#footer .footer_company span{float:right;width:calc(100% - 155px);padding:0 15px 0 0}
+#footer .footer_company a:hover{color:var(--ink)}
+@media all and (max-width:700px){
+  #footer .footer_company{width:94%;margin:0 3% 15px 3%;padding-bottom:15px;border-bottom:1px solid var(--line)}
+}
+
+/* ── 구매안전서비스 ── */
+#footer .footer_escrow{float:left;width:42%;min-height:150px;margin:0 1% 15px 0}
+#footer .footer_escrow li{margin:0 0 5px}
+#footer .footer_escrow li:first-child span{display:inline-block;padding:2px 8px;border-radius:var(--r-btn)}
+#footer .footer_escrow li.escrow2{max-width:80%}
+@media all and (max-width:700px){
+  #footer .footer_escrow{width:94%;min-height:auto;margin:0 3% 15px 3%;padding-bottom:15px;border-bottom:1px solid var(--line)}
+}
+
+/* ── 아이콘 ── */
+#footer .footer_ico{float:left;width:42%;max-width:550px;margin:0 1% 0 0;font-size:0}
+#footer .footer_ico li{display:inline-block;max-width:75px;margin:0 1% 5px 0}
+#footer .footer_ico li img{width:100%}
+@media all and (max-width:700px){
+  #footer .footer_ico{width:94%;margin:0 3%;text-align:center}
+  #footer .footer_ico li{width:18%;margin:0 1%}
+}
+
+/* ── 카피라이트 바 ── */
+.footer_end{display:block;position:relative;height:48px;line-height:48px;margin:24px 0 0;
+  background:var(--dark);font-size:var(--t-label);text-align:center;color:#fff}
+.footer_end_inner{width:100%}
+.footer_end .copyright{float:left;padding:0 0 0 10px;color:rgba(255,255,255,.7)}
+.footer_end .made a{position:relative;float:right;margin:0 20px 0 0;color:rgba(255,255,255,.6);
+  font-size:var(--t-caption);font-weight:var(--fw-bold);transition:color .2s ease}
+.footer_end .made a:hover{text-decoration:none;color:#fff}
+.footer_end .made span{color:rgba(255,255,255,.35);transition:color .2s ease}
+.footer_end .made a:hover span{color:#fff}
