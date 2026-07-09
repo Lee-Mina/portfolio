@@ -1,0 +1,91 @@
+@charset "utf-8";
+/* ============================================================
+   상단 헤더 / 내비  ·  header.css   (Figma "Header / Desktop")
+   ------------------------------------------------------------
+   · 한 줄 헤더(높이 72) : 로고 · 주메뉴 · 아이콘(검색/마이/장바구니)
+   · 클래스명은 기존 스킨과 동일하게 유지했습니다.
+   · 색/폰트는 jy-tokens.css 변수를 사용 → 이 파일은 레이아웃만 담당.
+   ============================================================ */
+
+/* ── 헤더 골격 ── */
+#header{position:relative;z-index:101;background:#fff;transition:box-shadow .25s ease}
+#header .hd-inner{display:flex;align-items:center;gap:24px;height:72px}
+#header.fixed{position:fixed;top:0;left:0;right:0;box-shadow:0 1px 0 var(--line)}
+
+/* ── 로고 ── */
+#header .logo{flex:0 0 auto;width:auto;height:28px;margin:0}
+#header .logo a,#header .logo img{height:28px;width:auto;max-height:28px}
+#header .logo img:nth-child(2),#header .logo img:nth-child(3){display:none} /* 롤오버/모바일용 여분 이미지 숨김 */
+
+/* ── 주 메뉴(상품분류 인라인) ──
+   ※ category.html 이 #category-lnb .d1-wrap 구조라고 가정.
+     구조가 다르면 아래 셀렉터의 ' a '만 실제 메뉴 링크에 맞춰 조정하세요. */
+.hd-nav{flex:1 1 auto;min-width:0}
+.hd-nav #category-lnb,.hd-nav .d1-wrap,.hd-nav .nav{display:flex;align-items:center;gap:4px}
+.hd-nav a{display:block;padding:10px 14px;font-size:var(--t-body-s);font-weight:var(--fw-semibold);
+  letter-spacing:-.01em;color:var(--ink);white-space:nowrap;line-height:1}
+.hd-nav a:hover{color:var(--ci-red);text-decoration:none}
+/* 2-depth 드롭다운(있을 때만, 간결하게) */
+.hd-nav .d1-wrap .d1>div{display:none;position:absolute;top:100%;left:0;min-width:180px;padding:8px 0;
+  background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.1);z-index:20}
+.hd-nav .d1-wrap .d1:hover>div{display:block}
+.hd-nav .d1-wrap .d1 dd a{padding:8px 18px;font-weight:var(--fw-regular);color:var(--ink-2)}
+.hd-nav .d1-wrap .d1 dd a:hover{color:var(--ink)}
+
+/* ── 우측 아이콘 ── */
+.header_icon{display:flex;align-items:center;gap:18px;margin-left:auto}
+.header_icon li{position:relative}
+.header_icon a{position:relative;display:flex;align-items:center;color:var(--ink)}
+.header_icon i{font-size:22px;line-height:1;color:var(--ink);transition:color .2s}
+.header_icon a:hover i{color:var(--ci-red)}
+.header_icon .count{position:absolute;top:-6px;right:-8px;min-width:16px;height:16px;padding:0 4px;
+  border-radius:var(--r-pill);background:var(--ci-red);color:#fff;font-size:11px;font-weight:600;
+  line-height:16px;text-align:center}
+.header_icon .count:empty{display:none}
+
+/* ── 검색창 토글 ── */
+.hd-search{display:none;border-top:1px solid var(--line);background:#fff}
+.hd-search.on{display:block}
+.hd-search .-frame{padding:16px 0}
+
+/* ── 모바일 햄버거(PC 숨김) ── */
+.hd-menu{display:none;padding:0;background:none;border:0;color:var(--ink);font-size:24px;line-height:1;cursor:pointer}
+
+/* ============================================================
+   모바일 (≤960)
+   ============================================================ */
+@media all and (max-width:960px){
+  #header .hd-inner{height:56px;gap:12px}
+  .hd-menu{display:block;order:1}
+  #header .logo{order:2;margin:0 auto;height:24px}                 /* 로고 가운데 */
+  #header .logo a,#header .logo img{height:24px;max-height:24px}
+  .hd-nav{display:none}                                            /* 인라인 메뉴 → 햄버거/하단바로 */
+  .header_icon{order:3;gap:14px}
+  .header_icon .ico_mypage{display:none}                           /* 하단바에 있어 중복 제거 */
+}
+
+/* ── 모바일 전체메뉴 패널 ── */
+.hd-allmenu{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.4)}
+.hd-allmenu.on{display:block}
+.hd-allmenu-in{position:absolute;top:0;left:0;bottom:0;width:82%;max-width:320px;background:#fff;
+  padding:24px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.hd-allmenu-in a{display:block;padding:13px 4px;font-size:var(--t-body-m);color:var(--ink);border-bottom:1px solid var(--line)}
+body.hd-lock{overflow:hidden}
+
+/* ============================================================
+   하단 고정 내비  ·  모바일(≤960) 전용
+   (bottomnav.html 과 함께 사용)
+   ============================================================ */
+.jy-bottomnav{display:none}
+@media all and (max-width:960px){
+  .jy-bottomnav{display:flex;align-items:center;justify-content:space-around;position:fixed;left:0;right:0;bottom:0;
+    z-index:500;height:58px;padding-bottom:env(safe-area-inset-bottom,0);background:#fff;border-top:1px solid var(--line)}
+  body{padding-bottom:calc(58px + env(safe-area-inset-bottom,0))}   /* 본문이 가리지 않도록 */
+}
+.jy-bn-item{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;
+  color:var(--muted);text-decoration:none}
+.jy-bn-item i{font-size:22px}
+.jy-bn-item span:not(.jy-bn-badge){font-size:11px;line-height:1}
+.jy-bn-item.on{color:var(--ink);font-weight:var(--fw-medium)}
+.jy-bn-badge{position:absolute;top:-2px;right:calc(50% - 22px);min-width:16px;height:16px;padding:0 3px;
+  border-radius:var(--r-pill);background:var(--ci-red);color:#fff;font-size:10px;line-height:16px;text-align:center}

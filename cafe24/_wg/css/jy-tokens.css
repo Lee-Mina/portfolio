@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* ============================================================
+   JOOYEON 디자인 토큰  ·  jy-tokens.css
+   ------------------------------------------------------------
+   · 모든 페이지에서 "가장 먼저" 로드하세요. (다른 jy CSS보다 위)
+   · 값은 Figma "주연테크 리브랜딩" 스타일 가이드와 1:1로 일치합니다.
+   · 색/폰트 크기 변경은 아래 :root 값만 고치면 전체에 반영됩니다.
+     → 운영자는 이 파일 하나만 봐도 색·크기를 바꿀 수 있습니다.
+   ============================================================ */
+:root{
+  /* ── 브랜드 컬러 (Color System) ── */
+  --ci-red:#E6002D;        /* 행동·강조 전용(버튼/가격/뱃지) */
+  --ci-red-hover:#C50026;
+  --ink:#111111;           /* 기본 텍스트 */
+  --ink-2:#555555;         /* 보조 텍스트 (Ink Secondary) */
+  --muted:#8A8A8E;         /* 흐린 텍스트 */
+  --warm-white:#F8F5F0;
+  --sand:#E6DAC8;
+  --oak:#C9B998;
+  --g100:#F0F0F0;
+  --line:#ECECEC;          /* 구분선 */
+  --img-bg:#F6F6F8;        /* 상품 이미지 배경 */
+  --dark:#17171A;          /* 다크 섹션 배경 */
+
+  /* ── 폰트 ── */
+  --font:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700;
+
+  /* ── 타이포 스케일 : size / line-height (letter-spacing는 유틸 클래스에 반영) ── */
+  --t-display-xl:56px; --t-display-xl-lh:68px;   /* Bold  -2%  Hero 메인 카피 */
+  --t-display-l:48px;  --t-display-l-lh:60px;    /* Bold  -2% */
+  --t-heading-xl:40px; --t-heading-xl-lh:52px;   /* Bold  -1% */
+  --t-heading-l:36px;  --t-heading-l-lh:48px;    /* Bold  -1%  WHY / 섹션 타이틀 */
+  --t-heading-m:28px;  --t-heading-m-lh:40px;    /* Semibold -1% */
+  --t-title-l:24px;    --t-title-l-lh:34px;      /* Semibold -1%  (34: 여백 확보용 추천값) */
+  --t-title-m:22px;    --t-title-m-lh:32px;      /* Semibold -1%  상품명/카드 제목 */
+  --t-body-l:18px;     --t-body-l-lh:28px;       /* Regular */
+  --t-body-m:16px;     --t-body-m-lh:24px;       /* Regular  스펙/본문 */
+  --t-body-s:15px;     --t-body-s-lh:22px;       /* Regular */
+  --t-caption:14px;    --t-caption-lh:20px;      /* Regular */
+  --t-label:12px;      --t-label-lh:18px;        /* Medium 2% */
+  --t-eyebrow:14px;    --t-eyebrow-lh:20px;      /* Medium 4%  WHY JOOYON / FIND BY USE */
+  --t-price-l:32px;    --t-price-l-lh:40px;      /* Bold -2% */
+  --t-price-m:24px;    --t-price-m-lh:32px;      /* Bold -2% */
+  --t-price-s:20px;    --t-price-s-lh:28px;      /* Bold -1% */
+
+  /* ── 라운드 / 간격 (Product Card 기준) ── */
+  --r-card:16px;   /* 카드/이미지 라운드 */
+  --r-pill:999px;  /* 뱃지/칩 */
+  --r-btn:8px;
+  --card-pad:20px; --card-gap:16px;
+
+  /* ── 기존 스킨 변수 호환(별칭) : 예전 CSS/클래스가 그대로 동작하도록 ──
+       (다크 섹션이 흰 배경으로 깨지던 문제도 여기서 --jy-dark 정의로 해결) */
+  --jy-red:var(--ci-red); --jy-red-hover:var(--ci-red-hover);
+  --jy-ink:var(--ink); --jy-dark:var(--dark);
+  --jy-line:var(--line); --jy-muted:var(--muted);
+}
+
+/* ============================================================
+   타이포 유틸 클래스 — 마크업에서 골라 쓰면 됩니다 (선택 사항)
+   예) <h2 class="t-heading-l">WHY JOOYON</h2>
+   ============================================================ */
+.t-display-xl{font-size:var(--t-display-xl);line-height:var(--t-display-xl-lh);font-weight:var(--fw-bold);letter-spacing:-.02em}
+.t-display-l {font-size:var(--t-display-l); line-height:var(--t-display-l-lh); font-weight:var(--fw-bold);letter-spacing:-.02em}
+.t-heading-xl{font-size:var(--t-heading-xl);line-height:var(--t-heading-xl-lh);font-weight:var(--fw-bold);letter-spacing:-.01em}
+.t-heading-l {font-size:var(--t-heading-l); line-height:var(--t-heading-l-lh); font-weight:var(--fw-bold);letter-spacing:-.01em}
+.t-heading-m {font-size:var(--t-heading-m); line-height:var(--t-heading-m-lh); font-weight:var(--fw-semibold);letter-spacing:-.01em}
+.t-title-l{font-size:var(--t-title-l);line-height:var(--t-title-l-lh);font-weight:var(--fw-semibold);letter-spacing:-.01em}
+.t-title-m{font-size:var(--t-title-m);line-height:var(--t-title-m-lh);font-weight:var(--fw-semibold);letter-spacing:-.01em}
+.t-body-l{font-size:var(--t-body-l);line-height:var(--t-body-l-lh)}
+.t-body-m{font-size:var(--t-body-m);line-height:var(--t-body-m-lh)}
+.t-body-s{font-size:var(--t-body-s);line-height:var(--t-body-s-lh)}
+.t-caption{font-size:var(--t-caption);line-height:var(--t-caption-lh)}
+.t-label{font-size:var(--t-label);line-height:var(--t-label-lh);font-weight:var(--fw-medium);letter-spacing:.02em}
+.t-eyebrow{font-size:var(--t-eyebrow);line-height:var(--t-eyebrow-lh);font-weight:var(--fw-medium);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.t-price-l{font-size:var(--t-price-l);line-height:var(--t-price-l-lh);font-weight:var(--fw-bold);letter-spacing:-.02em;color:var(--ci-red)}
+.t-price-m{font-size:var(--t-price-m);line-height:var(--t-price-m-lh);font-weight:var(--fw-bold);letter-spacing:-.02em}
+.t-price-s{font-size:var(--t-price-s);line-height:var(--t-price-s-lh);font-weight:var(--fw-bold);letter-spacing:-.01em}

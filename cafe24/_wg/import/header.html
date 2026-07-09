@@ -1,0 +1,75 @@
+<!------------------------------------------------------------------
+    상단 헤더  ·  Figma "Header / Desktop" 기준
+    ------------------------------------------------------------------
+    구조(한 줄, 높이 72) : [햄버거(모바일)]  로고  ·  주메뉴  ·  검색/마이/장바구니
+    · 로고·상품분류·검색은 "기존 카페24 모듈"을 그대로 재사용 → 동적으로 자동 반영
+    · 메뉴 항목은 [상점관리 > 상품분류]에서 관리합니다. (코드 수정 불필요)
+    · 로고 이미지 교체는 [디자인(웹) > 배너/팝업 > logo_ms]에서 등록합니다.
+------------------------------------------------------------------->
+<!--@css(/_wg/css/header.css)-->
+
+<div id="skipNavigation">
+    <p><a href="#category">전체상품목록 바로가기</a></p>
+    <p><a href="#contents">본문 바로가기</a></p>
+</div>
+
+<!-- 로딩 스피너 -->
+<div class="spinner"></div>
+
+<!-- 최상단 띠배너(선택). 필요 없으면 이 한 줄만 삭제하세요 -->
+<!--@import(/_wg/_cPack/cp507/dom.html)-->
+
+<header id="header">
+    <div class="hd-inner -frame">
+
+        <!-- ① 모바일 전체메뉴 버튼 (PC에서는 숨김) -->
+        <button type="button" class="hd-menu" aria-label="전체 메뉴"><i class="xi-bars"></i></button>
+
+        <!-- ② 로고 -->
+        <!--@import(/_wg/import/logo.html)-->
+
+        <!-- ③ 주 메뉴 : 상품분류(대분류) 인라인 (PC 전용) -->
+        <nav class="hd-nav" id="category">
+            <!--@import(/_wg/import/category.html)-->
+        </nav>
+
+        <!-- ④ 우측 아이콘 -->
+        <ul class="header_icon">
+            <li class="ico_search"><a href="#none" class="hd-searchToggle" aria-label="검색"><i class="xi-search"></i></a></li>
+            <li class="ico_mypage"><a href="/myshop/" aria-label="마이페이지"><i class="xi-user-o"></i></a></li>
+            <li class="ico_cart"><a href="/order/basket.html" aria-label="장바구니"><i class="xi-cart-o"></i><span class="count" id="hdCartCount"></span></a></li>
+        </ul>
+    </div>
+
+    <!-- 검색창(검색 아이콘 클릭 시 펼침) : 기존 cp780 검색 모듈 -->
+    <div class="hd-search">
+        <div class="-frame"><!--@import(/_wg/_cPack/cp780/dom.html)--></div>
+    </div>
+</header>
+
+<!-- 모바일 전체메뉴 패널(상품분류를 복제해서 노출) -->
+<div class="hd-allmenu"><div class="hd-allmenu-in"></div></div>
+
+<!-- 헤더 동작 : 스크롤 고정 · 검색 토글 · 모바일 메뉴 -->
+<script>
+(function(){
+  var h=document.getElementById('header');
+  if(!h) return;
+  // 스크롤 시 헤더 고정
+  window.addEventListener('scroll',function(){
+    h.classList.toggle('fixed', window.scrollY>10);
+  },{passive:true});
+  // 검색 토글
+  var st=document.querySelector('.hd-searchToggle'), sb=document.querySelector('.hd-search');
+  if(st&&sb){ st.addEventListener('click',function(e){e.preventDefault();sb.classList.toggle('on');}); }
+  // 모바일 전체메뉴 : 상품분류 메뉴를 그대로 복제해서 사용
+  var mb=document.querySelector('.hd-menu'), panel=document.querySelector('.hd-allmenu'),
+      nav=document.querySelector('.hd-nav');
+  if(mb&&panel&&nav){
+    panel.querySelector('.hd-allmenu-in').innerHTML=nav.innerHTML;
+    var toggle=function(){panel.classList.toggle('on');document.body.classList.toggle('hd-lock');};
+    mb.addEventListener('click',toggle);
+    panel.addEventListener('click',function(e){if(e.target===panel)toggle();});
+  }
+})();
+</script>

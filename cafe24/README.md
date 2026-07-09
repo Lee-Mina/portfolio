@@ -1,0 +1,33 @@
+# 주연샵 헤더/네비 리뉴얼 (Cafe24 붙여넣기용)
+
+Figma "주연테크 리브랜딩" 스타일 가이드 기준. **클래스명은 기존 스킨 그대로 유지**했고,
+색·폰트는 토큰 파일 하나(`jy-tokens.css`)로 관리해 운영 보수가 쉽도록 구성했습니다.
+
+## 파일
+| 파일 | 카페24 경로 | 역할 |
+|---|---|---|
+| `_wg/css/jy-tokens.css` | `/_wg/css/jy-tokens.css` | **디자인 토큰**(색/타이포/라운드). 가장 먼저 로드 |
+| `_wg/import/header.html` | `/_wg/import/header.html` | 한 줄 헤더(로고·주메뉴·아이콘) |
+| `_wg/css/header.css` | `/_wg/css/header.css` | 헤더 + 모바일 전체메뉴 + 하단 네비 스타일 |
+| `_wg/import/bottomnav.html` | `/_wg/import/bottomnav.html` | 모바일 전용 하단 고정 네비 |
+
+## 적용 순서
+1. **토큰 로드** — `base.html`(또는 공통 head) 최상단에 한 줄 추가:
+   ```
+   <!--@css(/_wg/css/jy-tokens.css)-->
+   ```
+   → 기존 `--jy-dark` 미정의로 흰 배경에 흰 글씨 되던 다크 섹션도 이걸로 해결됩니다.
+2. **헤더 교체** — `/_wg/import/header.html` 내용을 이 파일로 교체.
+3. **헤더 CSS 교체** — `/_wg/css/header.css` 교체.
+4. **하단 네비 추가** — `basic/main.html`의 `</body>` 직전, `#wrap` 바깥에:
+   ```
+   <!--@import(/_wg/import/bottomnav.html)-->
+   ```
+   그리고 기존 header.html 안에 있던 `<nav class="jy-bottomnav">…</nav>` 블록은 삭제.
+
+## 알아둘 점
+- **메뉴 항목**은 `[상점관리 > 상품분류]`에서 관리 → 코드 수정 불필요.
+- **로고 이미지**는 `[디자인 > 배너/팝업 > logo_ms]` 배너로 교체(투명 PNG).
+- 주메뉴는 `category.html`이 `#category-lnb .d1-wrap` 구조라고 가정하고 스타일링했습니다.
+  실제 출력이 다르면 `header.css`의 `.hd-nav a` 셀렉터만 실제 메뉴 링크에 맞춰 조정하세요.
+- 장바구니 뱃지(`#hdCartCount` / `#jyBnCart`)는 카페24 장바구니 수량을 넣으면 표시됩니다(비어 있으면 자동 숨김).
