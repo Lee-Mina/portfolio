@@ -12,6 +12,7 @@ Figma "주연테크 리브랜딩" 스타일 가이드 기준. **클래스명은 
 | `_wg/import/bottomnav.html` | `/_wg/import/bottomnav.html` | 모바일 전용 하단 고정 네비 |
 | `_wg/css/footer.css` | `/_wg/css/footer.css` | 푸터(토큰 적용, 클래스명 유지, 배경 png 제거) |
 | `_wg/css/jy-prdcard.css` | `/_wg/css/jy-prdcard.css` | 상품 카드(라운드16·이미지1:1·뱃지 pill·상품명 2줄) |
+| `_wg/import/hero.html` | `/_wg/import/hero.html` | 메인 히어로(Display/XL 카피 + CTA). jy-main.css `.jy-hero` 재사용 |
 
 ## 적용 순서
 1. **토큰 로드** — `base.html`(또는 공통 head) 최상단에 한 줄 추가:

@@ -1,0 +1,29 @@
+<!------------------------------------------------------------------
+    메인 히어로  ·  Figma 디자인 시스템 카피 + jy-main.css .jy-hero 스타일
+    ------------------------------------------------------------------
+    · 스타일은 기존 /_wg/css/jy-main.css 의 .jy-hero* 를 그대로 사용합니다.
+      (색/폰트는 jy-tokens.css 토큰 → Display/XL·CI Red 자동 반영)
+    · 적용 : main.html(메인)에서
+        <!--@import(/_wg/_cPack/cp500/dom.html)-->   (기존 슬라이드배너)
+      이 한 줄을 지우고 아래 대신 이 파일을 인클루드하세요.
+        <!--@import(/_wg/import/hero.html)-->
+    · 배경 이미지 : /_wg/img/hero.jpg (없으면 자동으로 아이콘 플레이스홀더)
+    · 카피/버튼 링크는 이 파일에서 직접 수정 (운영자 편집 쉬움)
+------------------------------------------------------------------->
+<section class="jy-hero">
+    <div class="jy-hero-in -frame">
+        <div class="jy-hero-copy">
+            <span class="jy-hero-tag">JOOYON SHOP</span>
+            <h1>당신의 일상에 딱 맞는<br><em>PC</em>를 제안합니다</h1>
+            <p>용도·예산·디자인 취향에 맞춰 주연샵이 추천해드립니다.</p>
+            <div class="jy-hero-btns">
+                <a href="/product/list.html" class="jy-btn red">제품 둘러보기 <i class="xi-arrow-right" aria-hidden="true"></i></a>
+                <a href="/product/list.html?cate_no=76" class="jy-btn ghost inv">용도별 추천 보기</a>
+            </div>
+        </div>
+        <div class="jy-hero-visual">
+            <img src="/_wg/img/hero.jpg" alt="주연샵 추천 PC" onerror="this.closest('.jy-hero-visual').classList.add('empty');this.remove();">
+            <i class="xi-monitor" aria-hidden="true"></i>
+        </div>
+    </div>
+</section>
