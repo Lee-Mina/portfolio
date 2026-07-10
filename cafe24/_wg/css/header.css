@@ -125,3 +125,11 @@ body.hd-lock{overflow:hidden}
 .jy-catmenu-group>a:not(.jy-catmenu-gtit){display:block;padding:12px 2px;font-size:var(--t-body-m);
   color:var(--ink);border-top:1px solid var(--line)}
 .jy-catmenu-group>a:not(.jy-catmenu-gtit):active{color:var(--ci-red)}
+
+/* 서브분류가 없을 때(대분류 1단만) : 왼쪽 레일 숨기고 단일 리스트 */
+.jy-catmenu-body.simple .jy-catmenu-rail{display:none}
+.jy-catmenu-body.simple .jy-catmenu-pane{padding:8px 16px}
+.jy-catmenu-list a{display:flex;align-items:center;justify-content:space-between;padding:17px 4px;
+  font-size:var(--t-body-l);font-weight:var(--fw-medium);color:var(--ink);border-bottom:1px solid var(--line)}
+.jy-catmenu-list a:last-child{border-bottom:0}
+.jy-catmenu-list .g{color:var(--muted);font-size:18px}

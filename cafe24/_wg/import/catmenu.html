@@ -33,55 +33,67 @@
   function href(a){return (a && a.getAttribute('href')) || '#none';}
   function qsa(el,sel){try{return el.querySelectorAll(sel);}catch(e){return [];}}
 
-  // ── 범용 카테고리 파서 : 중첩 목록이면 구조 상관없이 대/중/소분류로 추출 ──
+  // ── 카테고리 파서 : #category-lnb(Layout_category) 를 읽기만 함(수정 X) ──
+  // 배너(category_img / js-banner)는 제외, 중첩 서브분류가 있으면 함께 추출.
+  function skip(n){return n.classList&&(n.classList.contains('category_img')||n.classList.contains('img'))
+      ||n.hasAttribute&&(n.hasAttribute('js-banner-module')||n.hasAttribute('js-banner'));}
   function isItem(n){return n.classList&&(n.classList.contains('d1')||n.classList.contains('d2')||n.classList.contains('d3'))||n.tagName==='LI'||n.tagName==='DD';}
   function isWrap(n){return n.tagName==='UL'||n.tagName==='OL'||n.tagName==='DL'||(n.classList&&(n.classList.contains('d1-wrap')||n.classList.contains('d2-wrap')||n.classList.contains('d3-wrap')));}
   function collect(container){var out=[];Array.prototype.forEach.call(container.children,function(n){
-    if(isItem(n)) out.push(n); else if(isWrap(n)) out=out.concat(collect(n));}); return out;}
+    if(skip(n)) return; if(isItem(n)) out.push(n); else if(isWrap(n)) out=out.concat(collect(n));}); return out;}
   function anchorOf(item){for(var i=0;i<item.children.length;i++){if(item.children[i].tagName==='A')return item.children[i];} return item.querySelector('a');}
-  function subOf(item){for(var i=0;i<item.children.length;i++){if(isWrap(item.children[i]))return item.children[i];} return null;}
+  function subOf(item){for(var i=0;i<item.children.length;i++){var c=item.children[i]; if(!skip(c)&&isWrap(c))return c;} return null;}
+
+  function parse(){
+    var root=document.querySelector('#category-lnb .d1-wrap')||document.querySelector('#category-lnb ul')
+             ||document.querySelector('#category-lnb')||document.querySelector('.xans-layout-category');
+    if(!root) return null;
+    var cats=[];
+    collect(root).forEach(function(d1){
+      var a1=anchorOf(d1); if(!a1) return; var nm=name(a1)||(a1.getAttribute('title')||'').trim(); if(!nm) return;
+      var subs=[], s1=subOf(d1);
+      if(s1) collect(s1).forEach(function(d2){
+        var a2=anchorOf(d2); if(!a2||!name(a2)) return;
+        var items=[], s2=subOf(d2);
+        if(s2) collect(s2).forEach(function(d3){var a3=anchorOf(d3); if(a3&&name(a3)) items.push({name:name(a3),href:href(a3)});});
+        subs.push({name:name(a2),href:href(a2),items:items});
+      });
+      cats.push({name:nm,href:href(a1),subs:subs});
+    });
+    return cats.length?cats:null;
+  }
 
   function build(){
     if(built) return true;
-    var root=document.querySelector('#category-lnb')||document.querySelector('.xans-layout-category')
-             ||document.querySelector('#category .d1-wrap')||document.querySelector('#category ul');
-    if(!root) return false;                     // 아직 분류 DOM 없음 → 다음 기회에 재시도
-    var d1s=collect(root);
-    if(!d1s.length) return false;
-
-    d1s.forEach(function(d1){
-      var a1=anchorOf(d1); if(!a1) return;
-      var nm1=name(a1)||(a1.getAttribute('title')||'').trim(); if(!nm1) return;
-      var i=rail.children.length;
-
-      var li=document.createElement('li'); li.setAttribute('data-i',i); if(!i) li.className='on';
-      li.innerHTML='<a href="#none">'+nm1+'</a>'; rail.appendChild(li);
-
-      var panel=document.createElement('div');
-      panel.className='jy-catmenu-panel'+(pane.children.length?'':' on'); panel.setAttribute('data-i',i);
-
-      var sub1=subOf(d1), d2s=sub1?collect(sub1):[];
-      if(d2s.length){
-        d2s.forEach(function(d2){
-          var a2=anchorOf(d2); if(!a2) return;
-          var g=document.createElement('div'); g.className='jy-catmenu-group';
-          g.innerHTML='<a class="jy-catmenu-gtit" href="'+href(a2)+'">'+name(a2)+'<i class="xi-angle-right g"></i></a>';
-          var sub2=subOf(d2), d3s=sub2?collect(sub2):[];
-          d3s.forEach(function(d3){var a3=anchorOf(d3); if(a3) g.insertAdjacentHTML('beforeend','<a href="'+href(a3)+'">'+name(a3)+'</a>');});
-          panel.appendChild(g);
+    var cats=parse(); if(!cats) return false;
+    var body=menu.querySelector('.jy-catmenu-body'),
+        anySub=cats.some(function(c){return c.subs.length;});
+    if(anySub){                                   // 서브분류 있음 → 2단(레일+패널)
+      body.classList.remove('simple');
+      cats.forEach(function(c,i){
+        rail.insertAdjacentHTML('beforeend','<li data-i="'+i+'"'+(i?'':' class="on"')+'><a href="#none">'+c.name+'</a></li>');
+        var h='<div class="jy-catmenu-panel'+(i?'':' on')+'" data-i="'+i+'">';
+        if(c.subs.length) c.subs.forEach(function(s){
+          h+='<div class="jy-catmenu-group"><a class="jy-catmenu-gtit" href="'+s.href+'">'+s.name+'<i class="xi-angle-right g"></i></a>';
+          s.items.forEach(function(it){h+='<a href="'+it.href+'">'+it.name+'</a>';});
+          h+='</div>';
         });
-      }else{
-        panel.innerHTML='<div class="jy-catmenu-group"><a class="jy-catmenu-gtit" href="'+href(a1)+'">'+nm1+' 전체보기<i class="xi-angle-right g"></i></a></div>';
-      }
-      pane.appendChild(panel);
-    });
-    built=!!rail.children.length;
-    return built;
+        else h+='<div class="jy-catmenu-group"><a class="jy-catmenu-gtit" href="'+c.href+'">'+c.name+' 전체보기<i class="xi-angle-right g"></i></a></div>';
+        pane.insertAdjacentHTML('beforeend', h+'</div>');
+      });
+    }else{                                        // 1단만 → 단일 리스트
+      body.classList.add('simple');
+      var h='<div class="jy-catmenu-panel on"><div class="jy-catmenu-list">';
+      cats.forEach(function(c){h+='<a href="'+c.href+'">'+c.name+'<i class="xi-angle-right g"></i></a>';});
+      pane.insertAdjacentHTML('beforeend', h+'</div></div>');
+    }
+    built=true; return true;
   }
 
   function open(){
-    if(!build() && !rail.children.length){        // 분류를 못 읽으면 전체상품 폴백
-      rail.innerHTML='<li class="on"><a href="/product/list.html">전체상품</a></li>';
+    if(!build() && !pane.children.length){        // 분류를 못 읽으면 전체상품 폴백
+      menu.querySelector('.jy-catmenu-body').classList.add('simple');
+      pane.innerHTML='<div class="jy-catmenu-panel on"><div class="jy-catmenu-list"><a href="/product/list.html">전체상품<i class="xi-angle-right g"></i></a></div></div>';
     }
     menu.style.display='flex'; menu.classList.add('on'); menu.setAttribute('aria-hidden','false'); document.body.classList.add('hd-lock');
   }
