@@ -89,3 +89,44 @@ body.hd-lock{overflow:hidden}
 .jy-bn-item.on{color:var(--ink);font-weight:var(--fw-medium)}
 .jy-bn-badge{position:absolute;top:-2px;right:calc(50% - 22px);min-width:16px;height:16px;padding:0 3px;
   border-radius:var(--r-pill);background:var(--ci-red);color:#fff;font-size:10px;line-height:16px;text-align:center}
+
+/* ============================================================
+   2단 카테고리 메뉴  ·  모바일 전용 (catmenu.html)
+   왼쪽 대분류 레일 + 오른쪽 배너/중분류. 하단 네비 위를 덮음.
+   ============================================================ */
+.jy-catmenu{display:none;position:fixed;top:0;left:0;right:0;
+  bottom:calc(58px + env(safe-area-inset-bottom,0));   /* 하단 네비는 남김 */
+  z-index:490;background:#fff;flex-direction:column}
+.jy-catmenu.on{display:flex}
+.jy-catmenu-head{display:flex;align-items:center;justify-content:space-between;
+  height:52px;padding:0 16px;border-bottom:1px solid var(--line);flex:0 0 auto}
+.jy-catmenu-head strong{font-size:var(--t-body-l);font-weight:var(--fw-bold);color:var(--ink)}
+.jy-catmenu-close{padding:6px;background:none;border:0;color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+.jy-catmenu-body{flex:1 1 auto;display:flex;min-height:0}
+
+/* 왼쪽 레일 */
+.jy-catmenu-rail{width:36%;max-width:150px;flex:0 0 auto;overflow-y:auto;background:var(--g100);
+  -webkit-overflow-scrolling:touch}
+.jy-catmenu-rail li{border:0}
+.jy-catmenu-rail li a{display:block;padding:16px 14px;font-size:var(--t-body-s);line-height:1.3;
+  color:var(--ink-2);font-weight:var(--fw-medium)}
+.jy-catmenu-rail li.on{background:#fff}
+.jy-catmenu-rail li.on a{color:var(--ink);font-weight:var(--fw-semibold)}
+
+/* 오른쪽 패널 */
+.jy-catmenu-pane{flex:1 1 auto;overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch}
+.jy-catmenu-panel{display:none}
+.jy-catmenu-panel.on{display:block}
+.jy-catmenu-banner{display:flex;align-items:center;height:130px;margin-bottom:20px;padding:0 20px;
+  border-radius:var(--r-card);background:var(--dark);color:#fff;text-decoration:none}
+.jy-catmenu-banner strong{display:block;font-size:var(--t-title-m);font-weight:var(--fw-bold)}
+.jy-catmenu-banner em{display:block;margin-top:4px;font-size:var(--t-body-m);color:rgba(255,255,255,.7)}
+.jy-catmenu-group{margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.jy-catmenu-group:last-child{border-bottom:0}
+.jy-catmenu-gtit{display:flex;align-items:center;gap:8px;padding:14px 0;font-size:var(--t-body-l);
+  font-weight:var(--fw-bold);color:var(--ci-red)}
+.jy-catmenu-gtit i:first-child{font-size:20px}
+.jy-catmenu-gtit .g{margin-left:auto;font-size:18px;color:var(--muted)}
+.jy-catmenu-group>a:not(.jy-catmenu-gtit){display:block;padding:12px 2px;font-size:var(--t-body-m);
+  color:var(--ink);border-top:1px solid var(--line)}
+.jy-catmenu-group>a:not(.jy-catmenu-gtit):active{color:var(--ci-red)}
