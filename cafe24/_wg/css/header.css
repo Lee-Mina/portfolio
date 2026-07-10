@@ -64,12 +64,7 @@
   .header_icon .ico_mypage{display:none}                           /* 하단바에 있어 중복 제거 */
 }
 
-/* ── 모바일 전체메뉴 패널 ── */
-.hd-allmenu{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.4)}
-.hd-allmenu.on{display:block}
-.hd-allmenu-in{position:absolute;top:0;left:0;bottom:0;width:82%;max-width:320px;background:#fff;
-  padding:24px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.hd-allmenu-in a{display:block;padding:13px 4px;font-size:var(--t-body-m);color:var(--ink);border-bottom:1px solid var(--line)}
+/* 스크롤 잠금(카테고리 메뉴 열릴 때) */
 body.hd-lock{overflow:hidden}
 
 /* ============================================================

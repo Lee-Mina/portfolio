@@ -22,8 +22,8 @@
 <header id="header">
     <div class="hd-inner -frame">
 
-        <!-- ① 모바일 전체메뉴 버튼 (PC에서는 숨김) -->
-        <button type="button" class="hd-menu" aria-label="전체 메뉴"><i class="xi-bars"></i></button>
+        <!-- ① 모바일 전체메뉴 버튼 (PC에서는 숨김) → 2단 카테고리 메뉴 열기 -->
+        <button type="button" class="hd-menu jy-catmenu-open" aria-label="전체 메뉴"><i class="xi-bars"></i></button>
 
         <!-- ② 로고 -->
         <!--@import(/_wg/import/logo.html)-->
@@ -47,29 +47,12 @@
     </div>
 </header>
 
-<!-- 모바일 전체메뉴 패널(상품분류를 복제해서 노출) -->
-<div class="hd-allmenu"><div class="hd-allmenu-in"></div></div>
-
-<!-- 헤더 동작 : 스크롤 고정 · 검색 토글 · 모바일 메뉴 -->
+<!-- 헤더 동작 : 스크롤 고정 · 검색 토글  (모바일 전체메뉴는 catmenu.html이 담당) -->
 <script>
 (function(){
-  var h=document.getElementById('header');
-  if(!h) return;
-  // 스크롤 시 헤더 고정
-  window.addEventListener('scroll',function(){
-    h.classList.toggle('fixed', window.scrollY>10);
-  },{passive:true});
-  // 검색 토글
+  var h=document.getElementById('header'); if(!h) return;
+  window.addEventListener('scroll',function(){ h.classList.toggle('fixed', window.scrollY>10); },{passive:true});
   var st=document.querySelector('.hd-searchToggle'), sb=document.querySelector('.hd-search');
   if(st&&sb){ st.addEventListener('click',function(e){e.preventDefault();sb.classList.toggle('on');}); }
-  // 모바일 전체메뉴 : 상품분류 메뉴를 그대로 복제해서 사용
-  var mb=document.querySelector('.hd-menu'), panel=document.querySelector('.hd-allmenu'),
-      nav=document.querySelector('.hd-nav');
-  if(mb&&panel&&nav){
-    panel.querySelector('.hd-allmenu-in').innerHTML=nav.innerHTML;
-    var toggle=function(){panel.classList.toggle('on');document.body.classList.toggle('hd-lock');};
-    mb.addEventListener('click',toggle);
-    panel.addEventListener('click',function(e){if(e.target===panel)toggle();});
-  }
 })();
 </script>

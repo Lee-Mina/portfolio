@@ -1,137 +1,95 @@
 <!------------------------------------------------------------------
-    2단 카테고리 메뉴 (컴퓨존 스타일)  ·  모바일 전용
+    2단 카테고리 메뉴 (컴퓨존 스타일)  ·  모바일 전용  ·  자동 생성형
     ------------------------------------------------------------------
-    · 하단 네비 "카테고리"(.jy-catmenu-open) 를 누르면 열립니다.
-    · 왼쪽 = 대분류 레일 / 오른쪽 = 배너 + 중분류 목록.
-    · 운영 방법(아주 쉬움):
-        1) 대분류 추가 → .jy-catmenu-rail 에 <li data-cat="키"><a>이름</a></li>
-        2) 그 대분류 내용 → .jy-catmenu-pane 에 같은 data-cat 을 가진
-           <div class="jy-catmenu-panel" data-cat="키"> ... </div> 추가
-        3) 링크는 /product/list.html?cate_no=번호  (번호는 상품분류 관리에서 확인)
-    · 스타일은 header.css 안에 포함되어 있습니다(추가 로드 불필요).
+    · 운영자는 [상점관리 > 상품분류]에만 분류를 등록하면 됩니다. (코드 수정 X)
+    · 헤더에 이미 렌더링된 카페24 상품분류(#category-lnb)를 읽어
+      왼쪽=대분류 / 오른쪽=중분류·소분류 로 자동 구성합니다.
+    · 여는 버튼 : 하단 네비 "카테고리"(.jy-catmenu-open) / 헤더 햄버거(.hd-menu).
+    · 스타일은 header.css 에 포함(추가 로드 불필요).
+    · 전제: category.html 이 표준 구조(#category-lnb .d1-wrap > .d1 > a,
+      .d2-wrap > dl > dd > a, .d3-wrap ... dd > a)를 사용. 다르면 아래 셀렉터만 조정.
 ------------------------------------------------------------------->
 <div class="jy-catmenu" id="jyCatmenu" aria-hidden="true">
     <div class="jy-catmenu-head">
         <strong>카테고리</strong>
         <button type="button" class="jy-catmenu-close" aria-label="닫기"><i class="xi-close"></i></button>
     </div>
-
     <div class="jy-catmenu-body">
-        <!-- 왼쪽 : 대분류 레일 -->
-        <ul class="jy-catmenu-rail">
-            <li class="on" data-cat="ai"><a href="#none">AI 스토어</a></li>
-            <li data-cat="parts"><a href="#none">컴퓨터 부품</a></li>
-            <li data-cat="monitor"><a href="#none">모니터 · 주변기기</a></li>
-            <li data-cat="input"><a href="#none">키보드 · 마우스</a></li>
-            <li data-cat="pc"><a href="#none">데스크탑 · 조립PC</a></li>
-            <li data-cat="note"><a href="#none">노트북 · 태블릿</a></li>
-            <li data-cat="apple"><a href="#none">Apple</a></li>
-        </ul>
-
-        <!-- 오른쪽 : 중분류 패널 -->
-        <div class="jy-catmenu-pane">
-
-            <div class="jy-catmenu-panel on" data-cat="ai">
-                <a class="jy-catmenu-banner" href="/product/list.html?cate_no=99">
-                    <span><strong>로컬 AI 구축</strong><em>이미지 생성까지</em></span>
-                </a>
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=99"><i class="xi-cpu"></i>AI 스토어<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=99">AI PC (로컬PC)</a>
-                    <a href="/product/list.html?cate_no=99">AI 서버 / 워크스테이션</a>
-                    <a href="/product/list.html?cate_no=99">AI 조립부품</a>
-                </div>
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=71"><i class="xi-archive"></i>컴퓨터 부품<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=71">CPU</a>
-                    <a href="/product/list.html?cate_no=71">메인보드</a>
-                    <a href="/product/list.html?cate_no=71">메모리</a>
-                    <a href="/product/list.html?cate_no=71">SSD</a>
-                    <a href="/product/list.html?cate_no=71">그래픽카드</a>
-                </div>
-            </div>
-
-            <div class="jy-catmenu-panel" data-cat="parts">
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=71"><i class="xi-archive"></i>컴퓨터 부품<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=71">CPU</a>
-                    <a href="/product/list.html?cate_no=71">메인보드</a>
-                    <a href="/product/list.html?cate_no=71">메모리</a>
-                    <a href="/product/list.html?cate_no=71">SSD / HDD</a>
-                    <a href="/product/list.html?cate_no=71">그래픽카드</a>
-                    <a href="/product/list.html?cate_no=71">파워 / 케이스 / 쿨러</a>
-                </div>
-            </div>
-
-            <div class="jy-catmenu-panel" data-cat="monitor">
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=24"><i class="xi-monitor"></i>모니터 · 주변기기<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=24">일반 모니터</a>
-                    <a href="/product/list.html?cate_no=24">게이밍 모니터</a>
-                    <a href="/product/list.html?cate_no=24">모니터 암 / 받침대</a>
-                </div>
-            </div>
-
-            <div class="jy-catmenu-panel" data-cat="input">
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=25"><i class="xi-keyboard"></i>키보드 · 마우스<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=25">키보드</a>
-                    <a href="/product/list.html?cate_no=25">마우스</a>
-                    <a href="/product/list.html?cate_no=25">키스킨 / 장패드</a>
-                </div>
-            </div>
-
-            <div class="jy-catmenu-panel" data-cat="pc">
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=63"><i class="xi-desktop"></i>데스크탑 · 조립PC<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=63">사무용 PC</a>
-                    <a href="/product/list.html?cate_no=63">게이밍 PC</a>
-                    <a href="/product/list.html?cate_no=63">디자인 / 영상편집 PC</a>
-                </div>
-            </div>
-
-            <div class="jy-catmenu-panel" data-cat="note">
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=49"><i class="xi-laptop"></i>노트북 · 태블릿<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=49">노트북</a>
-                    <a href="/product/list.html?cate_no=49">태블릿</a>
-                </div>
-            </div>
-
-            <div class="jy-catmenu-panel" data-cat="apple">
-                <div class="jy-catmenu-group">
-                    <a class="jy-catmenu-gtit" href="/product/list.html?cate_no=50"><i class="xi-apple"></i>Apple<i class="xi-angle-right g"></i></a>
-                    <a href="/product/list.html?cate_no=50">MacBook</a>
-                    <a href="/product/list.html?cate_no=50">iPad</a>
-                    <a href="/product/list.html?cate_no=50">액세서리</a>
-                </div>
-            </div>
-
-        </div>
+        <ul class="jy-catmenu-rail"><!-- 대분류 자동 --></ul>
+        <div class="jy-catmenu-pane"><!-- 중/소분류 자동 --></div>
     </div>
 </div>
 
 <script>
 (function(){
-  var menu=document.getElementById('jyCatmenu');
-  if(!menu) return;
-  var rail=menu.querySelectorAll('.jy-catmenu-rail li'),
-      panels=menu.querySelectorAll('.jy-catmenu-panel'),
+  var menu=document.getElementById('jyCatmenu'); if(!menu) return;
+  var rail=menu.querySelector('.jy-catmenu-rail'),
       pane=menu.querySelector('.jy-catmenu-pane');
+
+  // #category-lnb 이름 추출(호버용 <h>, 포인트 <s> 등 잡텍스트 제거)
+  function name(a){var c=a.cloneNode(true);
+    c.querySelectorAll('h,s').forEach(function(e){e.remove();});
+    return c.textContent.replace(/\s+/g,' ').trim();}
+  function href(a){return (a && a.getAttribute('href')) || '#none';}
+  function qsa(el,sel){try{return el.querySelectorAll(sel);}catch(e){return [];}}
+
+  function build(){
+    var wrap=document.querySelector('#category-lnb .d1-wrap')||document.querySelector('#category-lnb');
+    if(!wrap) return false;
+    var d1s=qsa(wrap,':scope > .d1'); if(!d1s.length) d1s=wrap.querySelectorAll('.d1');
+    if(!d1s.length) return false;
+
+    d1s.forEach(function(d1,i){
+      var a1=d1.querySelector(':scope > a')||d1.querySelector('a'); if(!a1) return;
+
+      // 왼쪽 레일(대분류)
+      var li=document.createElement('li'); li.setAttribute('data-i',i); if(!i) li.className='on';
+      li.innerHTML='<a href="#none">'+name(a1)+'</a>'; rail.appendChild(li);
+
+      // 오른쪽 패널
+      var panel=document.createElement('div');
+      panel.className='jy-catmenu-panel'+(i?'':' on'); panel.setAttribute('data-i',i);
+
+      var d2wrap=d1.querySelector('.d2-wrap'),
+          d2s=d2wrap?qsa(d2wrap,':scope > dl > dd'):[];
+      if(!d2s.length && d2wrap) d2s=d2wrap.querySelectorAll('dl > dd');
+
+      if(d2s.length){
+        d2s.forEach(function(dd){
+          var a2=dd.querySelector(':scope > a')||dd.querySelector('a'); if(!a2) return;
+          var g=document.createElement('div'); g.className='jy-catmenu-group';
+          g.innerHTML='<a class="jy-catmenu-gtit" href="'+href(a2)+'">'+name(a2)+'<i class="xi-angle-right g"></i></a>';
+          qsa(dd,'.d3-wrap dd > a').forEach(function(a3){
+            g.insertAdjacentHTML('beforeend','<a href="'+href(a3)+'">'+name(a3)+'</a>');
+          });
+          panel.appendChild(g);
+        });
+      }else{
+        // 중분류가 없으면 대분류 바로가기만
+        panel.innerHTML='<div class="jy-catmenu-group"><a class="jy-catmenu-gtit" href="'+href(a1)+'">'+name(a1)+' 전체보기<i class="xi-angle-right g"></i></a></div>';
+      }
+      pane.appendChild(panel);
+    });
+    return !!rail.children.length;
+  }
+
+  var ok=build();
+  if(!ok){ // 분류를 못 읽으면 안전하게 전체상품 링크
+    rail.innerHTML='<li class="on"><a href="/product/list.html">전체상품</a></li>';
+  }
+
+  // 동작
   function open(){menu.classList.add('on');menu.setAttribute('aria-hidden','false');document.body.classList.add('hd-lock');}
   function close(){menu.classList.remove('on');menu.setAttribute('aria-hidden','true');document.body.classList.remove('hd-lock');}
-  // 대분류 전환
-  rail.forEach(function(li){
-    li.addEventListener('click',function(){
-      var key=li.getAttribute('data-cat');
-      rail.forEach(function(x){x.classList.toggle('on',x===li);});
-      panels.forEach(function(p){p.classList.toggle('on',p.getAttribute('data-cat')===key);});
-      if(pane) pane.scrollTop=0;
-    });
+  rail.addEventListener('click',function(e){
+    var li=e.target.closest('li[data-i]'); if(!li) return;
+    var i=li.getAttribute('data-i');
+    rail.querySelectorAll('li').forEach(function(x){x.classList.toggle('on',x===li);});
+    pane.querySelectorAll('.jy-catmenu-panel').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-i')===i);});
+    pane.scrollTop=0;
   });
-  // 열기 : 하단 네비 "카테고리"(.jy-catmenu-open)
-  document.querySelectorAll('.jy-catmenu-open').forEach(function(btn){
-    btn.addEventListener('click',function(e){e.preventDefault();open();});
+  document.querySelectorAll('.jy-catmenu-open').forEach(function(b){
+    b.addEventListener('click',function(e){e.preventDefault();open();});
   });
   menu.querySelector('.jy-catmenu-close').addEventListener('click',close);
 })();

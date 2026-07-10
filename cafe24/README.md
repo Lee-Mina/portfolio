@@ -13,7 +13,7 @@ Figma "주연테크 리브랜딩" 스타일 가이드 기준. **클래스명은 
 | `_wg/css/footer.css` | `/_wg/css/footer.css` | 푸터(토큰 적용, 클래스명 유지, 배경 png 제거) |
 | `_wg/css/jy-prdcard.css` | `/_wg/css/jy-prdcard.css` | 상품 카드(라운드16·이미지1:1·뱃지 pill·상품명 2줄) |
 | `_wg/import/hero.html` | `/_wg/import/hero.html` | 메인 히어로(Display/XL 카피 + CTA). jy-main.css `.jy-hero` 재사용 |
-| `_wg/import/catmenu.html` | `/_wg/import/catmenu.html` | 2단 카테고리 메뉴(모바일). 하단 네비 "카테고리"로 열림 |
+| `_wg/import/catmenu.html` | `/_wg/import/catmenu.html` | 2단 카테고리 메뉴(모바일, **상품분류 자동 생성**) |
 
 ## 적용 순서
 1. **토큰 로드** — `base.html`(또는 공통 head) 최상단에 한 줄 추가:
@@ -33,8 +33,9 @@ Figma "주연테크 리브랜딩" 스타일 가이드 기준. **클래스명은 
    <!--@import(/_wg/import/bottomnav.html)-->
    <!--@import(/_wg/import/catmenu.html)-->
    ```
-   하단 네비 "카테고리"(`.jy-catmenu-open`)를 누르면 열립니다. 대분류/중분류는
-   `catmenu.html` 안의 리스트만 편집하면 됩니다(상단 주석에 방법 정리).
+   하단 네비 "카테고리"와 헤더 햄버거(`.jy-catmenu-open`)로 열립니다.
+   **메뉴는 [상점관리 > 상품분류] 등록 내용으로 자동 생성**되므로 코드 수정이 필요 없습니다.
+   (헤더의 `#category-lnb` 상품분류 데이터를 읽어 왼쪽=대분류/오른쪽=중·소분류로 구성)
 
 ## 알아둘 점
 - **메뉴 항목**은 `[상점관리 > 상품분류]`에서 관리 → 코드 수정 불필요.
