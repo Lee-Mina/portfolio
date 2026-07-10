@@ -9,7 +9,7 @@
     · 전제: category.html 이 표준 구조(#category-lnb .d1-wrap > .d1 > a,
       .d2-wrap > dl > dd > a, .d3-wrap ... dd > a)를 사용. 다르면 아래 셀렉터만 조정.
 ------------------------------------------------------------------->
-<div class="jy-catmenu" id="jyCatmenu" aria-hidden="true">
+<div class="jy-catmenu" id="jyCatmenu" aria-hidden="true" style="display:none"><!-- 안전장치: CSS 없어도 홈에 안 새어나옴 -->
     <div class="jy-catmenu-head">
         <strong>카테고리</strong>
         <button type="button" class="jy-catmenu-close" aria-label="닫기"><i class="xi-close"></i></button>
@@ -33,35 +33,45 @@
   function href(a){return (a && a.getAttribute('href')) || '#none';}
   function qsa(el,sel){try{return el.querySelectorAll(sel);}catch(e){return [];}}
 
+  // ── 범용 카테고리 파서 : 중첩 목록이면 구조 상관없이 대/중/소분류로 추출 ──
+  function isItem(n){return n.classList&&(n.classList.contains('d1')||n.classList.contains('d2')||n.classList.contains('d3'))||n.tagName==='LI'||n.tagName==='DD';}
+  function isWrap(n){return n.tagName==='UL'||n.tagName==='OL'||n.tagName==='DL'||(n.classList&&(n.classList.contains('d1-wrap')||n.classList.contains('d2-wrap')||n.classList.contains('d3-wrap')));}
+  function collect(container){var out=[];Array.prototype.forEach.call(container.children,function(n){
+    if(isItem(n)) out.push(n); else if(isWrap(n)) out=out.concat(collect(n));}); return out;}
+  function anchorOf(item){for(var i=0;i<item.children.length;i++){if(item.children[i].tagName==='A')return item.children[i];} return item.querySelector('a');}
+  function subOf(item){for(var i=0;i<item.children.length;i++){if(isWrap(item.children[i]))return item.children[i];} return null;}
+
   function build(){
     if(built) return true;
-    var wrap=document.querySelector('#category-lnb .d1-wrap')||document.querySelector('#category-lnb');
-    var d1s=wrap?qsa(wrap,':scope > .d1'):[]; if(wrap&&!d1s.length) d1s=wrap.querySelectorAll('.d1');
-    if(!d1s.length) return false;   // 아직 분류 DOM이 없음 → 다음 기회에 다시 시도
+    var root=document.querySelector('#category-lnb')||document.querySelector('.xans-layout-category')
+             ||document.querySelector('#category .d1-wrap')||document.querySelector('#category ul');
+    if(!root) return false;                     // 아직 분류 DOM 없음 → 다음 기회에 재시도
+    var d1s=collect(root);
+    if(!d1s.length) return false;
 
-    d1s.forEach(function(d1,i){
-      var a1=d1.querySelector(':scope > a')||d1.querySelector('a'); if(!a1) return;
-      var li=document.createElement('li'); li.setAttribute('data-i',i); if(!rail.children.length) li.className='on';
-      li.innerHTML='<a href="#none">'+name(a1)+'</a>'; rail.appendChild(li);
+    d1s.forEach(function(d1){
+      var a1=anchorOf(d1); if(!a1) return;
+      var nm1=name(a1)||(a1.getAttribute('title')||'').trim(); if(!nm1) return;
+      var i=rail.children.length;
+
+      var li=document.createElement('li'); li.setAttribute('data-i',i); if(!i) li.className='on';
+      li.innerHTML='<a href="#none">'+nm1+'</a>'; rail.appendChild(li);
 
       var panel=document.createElement('div');
       panel.className='jy-catmenu-panel'+(pane.children.length?'':' on'); panel.setAttribute('data-i',i);
-      var d2wrap=d1.querySelector('.d2-wrap'),
-          d2s=d2wrap?qsa(d2wrap,':scope > dl > dd'):[];
-      if(!d2s.length && d2wrap) d2s=d2wrap.querySelectorAll('dl > dd');
 
+      var sub1=subOf(d1), d2s=sub1?collect(sub1):[];
       if(d2s.length){
-        d2s.forEach(function(dd){
-          var a2=dd.querySelector(':scope > a')||dd.querySelector('a'); if(!a2) return;
+        d2s.forEach(function(d2){
+          var a2=anchorOf(d2); if(!a2) return;
           var g=document.createElement('div'); g.className='jy-catmenu-group';
           g.innerHTML='<a class="jy-catmenu-gtit" href="'+href(a2)+'">'+name(a2)+'<i class="xi-angle-right g"></i></a>';
-          qsa(dd,'.d3-wrap dd > a').forEach(function(a3){
-            g.insertAdjacentHTML('beforeend','<a href="'+href(a3)+'">'+name(a3)+'</a>');
-          });
+          var sub2=subOf(d2), d3s=sub2?collect(sub2):[];
+          d3s.forEach(function(d3){var a3=anchorOf(d3); if(a3) g.insertAdjacentHTML('beforeend','<a href="'+href(a3)+'">'+name(a3)+'</a>');});
           panel.appendChild(g);
         });
       }else{
-        panel.innerHTML='<div class="jy-catmenu-group"><a class="jy-catmenu-gtit" href="'+href(a1)+'">'+name(a1)+' 전체보기<i class="xi-angle-right g"></i></a></div>';
+        panel.innerHTML='<div class="jy-catmenu-group"><a class="jy-catmenu-gtit" href="'+href(a1)+'">'+nm1+' 전체보기<i class="xi-angle-right g"></i></a></div>';
       }
       pane.appendChild(panel);
     });
@@ -73,9 +83,9 @@
     if(!build() && !rail.children.length){        // 분류를 못 읽으면 전체상품 폴백
       rail.innerHTML='<li class="on"><a href="/product/list.html">전체상품</a></li>';
     }
-    menu.classList.add('on'); menu.setAttribute('aria-hidden','false'); document.body.classList.add('hd-lock');
+    menu.style.display='flex'; menu.classList.add('on'); menu.setAttribute('aria-hidden','false'); document.body.classList.add('hd-lock');
   }
-  function close(){menu.classList.remove('on'); menu.setAttribute('aria-hidden','true'); document.body.classList.remove('hd-lock');}
+  function close(){menu.style.display='none'; menu.classList.remove('on'); menu.setAttribute('aria-hidden','true'); document.body.classList.remove('hd-lock');}
 
   // 트리거 : 문서 전체에 위임 → include 순서/시점과 무관하게 동작
   document.addEventListener('click',function(e){
