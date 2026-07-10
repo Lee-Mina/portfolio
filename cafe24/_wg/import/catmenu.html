@@ -24,9 +24,9 @@
 (function(){
   var menu=document.getElementById('jyCatmenu'); if(!menu) return;
   var rail=menu.querySelector('.jy-catmenu-rail'),
-      pane=menu.querySelector('.jy-catmenu-pane');
+      pane=menu.querySelector('.jy-catmenu-pane'),
+      built=false;
 
-  // #category-lnb 이름 추출(호버용 <h>, 포인트 <s> 등 잡텍스트 제거)
   function name(a){var c=a.cloneNode(true);
     c.querySelectorAll('h,s').forEach(function(e){e.remove();});
     return c.textContent.replace(/\s+/g,' ').trim();}
@@ -34,22 +34,18 @@
   function qsa(el,sel){try{return el.querySelectorAll(sel);}catch(e){return [];}}
 
   function build(){
+    if(built) return true;
     var wrap=document.querySelector('#category-lnb .d1-wrap')||document.querySelector('#category-lnb');
-    if(!wrap) return false;
-    var d1s=qsa(wrap,':scope > .d1'); if(!d1s.length) d1s=wrap.querySelectorAll('.d1');
-    if(!d1s.length) return false;
+    var d1s=wrap?qsa(wrap,':scope > .d1'):[]; if(wrap&&!d1s.length) d1s=wrap.querySelectorAll('.d1');
+    if(!d1s.length) return false;   // 아직 분류 DOM이 없음 → 다음 기회에 다시 시도
 
     d1s.forEach(function(d1,i){
       var a1=d1.querySelector(':scope > a')||d1.querySelector('a'); if(!a1) return;
-
-      // 왼쪽 레일(대분류)
-      var li=document.createElement('li'); li.setAttribute('data-i',i); if(!i) li.className='on';
+      var li=document.createElement('li'); li.setAttribute('data-i',i); if(!rail.children.length) li.className='on';
       li.innerHTML='<a href="#none">'+name(a1)+'</a>'; rail.appendChild(li);
 
-      // 오른쪽 패널
       var panel=document.createElement('div');
-      panel.className='jy-catmenu-panel'+(i?'':' on'); panel.setAttribute('data-i',i);
-
+      panel.className='jy-catmenu-panel'+(pane.children.length?'':' on'); panel.setAttribute('data-i',i);
       var d2wrap=d1.querySelector('.d2-wrap'),
           d2s=d2wrap?qsa(d2wrap,':scope > dl > dd'):[];
       if(!d2s.length && d2wrap) d2s=d2wrap.querySelectorAll('dl > dd');
@@ -65,32 +61,37 @@
           panel.appendChild(g);
         });
       }else{
-        // 중분류가 없으면 대분류 바로가기만
         panel.innerHTML='<div class="jy-catmenu-group"><a class="jy-catmenu-gtit" href="'+href(a1)+'">'+name(a1)+' 전체보기<i class="xi-angle-right g"></i></a></div>';
       }
       pane.appendChild(panel);
     });
-    return !!rail.children.length;
+    built=!!rail.children.length;
+    return built;
   }
 
-  var ok=build();
-  if(!ok){ // 분류를 못 읽으면 안전하게 전체상품 링크
-    rail.innerHTML='<li class="on"><a href="/product/list.html">전체상품</a></li>';
+  function open(){
+    if(!build() && !rail.children.length){        // 분류를 못 읽으면 전체상품 폴백
+      rail.innerHTML='<li class="on"><a href="/product/list.html">전체상품</a></li>';
+    }
+    menu.classList.add('on'); menu.setAttribute('aria-hidden','false'); document.body.classList.add('hd-lock');
   }
+  function close(){menu.classList.remove('on'); menu.setAttribute('aria-hidden','true'); document.body.classList.remove('hd-lock');}
 
-  // 동작
-  function open(){menu.classList.add('on');menu.setAttribute('aria-hidden','false');document.body.classList.add('hd-lock');}
-  function close(){menu.classList.remove('on');menu.setAttribute('aria-hidden','true');document.body.classList.remove('hd-lock');}
-  rail.addEventListener('click',function(e){
-    var li=e.target.closest('li[data-i]'); if(!li) return;
-    var i=li.getAttribute('data-i');
-    rail.querySelectorAll('li').forEach(function(x){x.classList.toggle('on',x===li);});
-    pane.querySelectorAll('.jy-catmenu-panel').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-i')===i);});
-    pane.scrollTop=0;
+  // 트리거 : 문서 전체에 위임 → include 순서/시점과 무관하게 동작
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.jy-catmenu-open')){ e.preventDefault(); open(); return; }
+    if(e.target.closest('.jy-catmenu-close')){ close(); return; }
+    var li=e.target.closest('#jyCatmenu .jy-catmenu-rail li[data-i]');
+    if(li){
+      var i=li.getAttribute('data-i');
+      rail.querySelectorAll('li').forEach(function(x){x.classList.toggle('on',x===li);});
+      pane.querySelectorAll('.jy-catmenu-panel').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-i')===i);});
+      pane.scrollTop=0;
+    }
   });
-  document.querySelectorAll('.jy-catmenu-open').forEach(function(b){
-    b.addEventListener('click',function(e){e.preventDefault();open();});
-  });
-  menu.querySelector('.jy-catmenu-close').addEventListener('click',close);
+
+  // 가능하면 미리 생성(분류 DOM이 준비됐을 때)
+  if(document.readyState!=='loading') build();
+  else document.addEventListener('DOMContentLoaded',build);
 })();
 </script>
