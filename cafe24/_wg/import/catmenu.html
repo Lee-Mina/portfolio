@@ -9,6 +9,12 @@
     · 전제: category.html 이 표준 구조(#category-lnb .d1-wrap > .d1 > a,
       .d2-wrap > dl > dd > a, .d3-wrap ... dd > a)를 사용. 다르면 아래 셀렉터만 조정.
 ------------------------------------------------------------------->
+<!-- [2단 메뉴 켜기] category_full_m(전체메뉴)을 실제 메뉴로 채운 뒤,
+     아래 한 줄의 주석을 풀면 대·중·소 2단 메뉴로 자동 전환됩니다.
+     (이 블록은 화면에 안 보이게 숨긴 채 데이터 소스로만 사용됩니다.)
+<div style="display:none" aria-hidden="true"><!--@import(/_wg/import/category_full_m.html)--></div>
+-->
+
 <div class="jy-catmenu" id="jyCatmenu" aria-hidden="true" style="display:none"><!-- 안전장치: CSS 없어도 홈에 안 새어나옴 -->
     <div class="jy-catmenu-head">
         <strong>카테고리</strong>
@@ -45,8 +51,12 @@
   function subOf(item){for(var i=0;i<item.children.length;i++){var c=item.children[i]; if(!skip(c)&&isWrap(c))return c;} return null;}
 
   function parse(){
-    var root=document.querySelector('#category-lnb .d1-wrap')||document.querySelector('#category-lnb ul')
-             ||document.querySelector('#category-lnb')||document.querySelector('.xans-layout-category');
+    // 우선순위 : ① 전체메뉴(수동, 대·중·소 전체) → ② 상품분류(자동, 대분류)
+    var root=document.querySelector('#category_full_m > li > ul')   // 전체메뉴 html버전(있으면 2단)
+             ||document.querySelector('#category-lnb .d1-wrap')      // Layout_category(자동 1단)
+             ||document.querySelector('#category-lnb ul')
+             ||document.querySelector('#category-lnb')
+             ||document.querySelector('.xans-layout-category');
     if(!root) return null;
     var cats=[];
     collect(root).forEach(function(d1){
