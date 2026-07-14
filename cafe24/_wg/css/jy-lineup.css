@@ -17,19 +17,18 @@
   font-weight:var(--fw-bold);letter-spacing:-.02em;color:#fff}
 .jy-lineup-cap em{display:block;margin-top:6px;font-size:var(--t-body-m);color:rgba(255,255,255,.9)}
 
-/* ③ 가로형 상품 행 (썸네일 왼쪽 + 텍스트 오른쪽) */
-.jy-lineup-list>li{flex-direction:row;align-items:center;gap:16px;
+/* ③ 가로형 상품 행 (썸네일 왼쪽 + 텍스트 오른쪽)
+   ※ 카드 내부(이름/스펙/뱃지)는 jy-prdcard.css 를 상속받고, 여기선 배치만 가로로 전환 */
+.jy-lineup-list>li.item{flex-direction:row;align-items:center;gap:16px;
   padding:14px 0;background:none;border-radius:0;border-bottom:1px solid var(--line)}
-.jy-lineup-list>li:last-child{border-bottom:0}
-.jy-lineup-list>li .thumbnail{flex:0 0 96px;width:96px;border-radius:var(--r-btn)}
-.jy-lineup-list>li .thumbnail img{border-radius:var(--r-btn)}
-.jy-lineup-list>li .description{flex:1;min-width:0;gap:4px}
-.jy-lineup-list>li .name,.jy-lineup-list>li .prdName{font-size:var(--t-body-l);line-height:1.4;
-  -webkit-line-clamp:1}
-.jy-lineup-list>li .price{font-size:var(--t-price-s)}
+.jy-lineup-list>li.item:last-child{border-bottom:0}
+.jy-lineup-list>li.item .thumbnail{flex:0 0 96px;width:96px;border-radius:var(--r-btn)}
+.jy-lineup-list>li.item .thumbnail img{border-radius:var(--r-btn)}
+.jy-lineup-list>li.item>.info_wrap{flex:1;min-width:0}
+.jy-lineup-list .proName{font-size:var(--t-body-l);line-height:1.4;-webkit-line-clamp:1}
 
 /* PC에서는 살짝 넓게 */
 @media all and (min-width:769px){
   .jy-lineup-feature img{aspect-ratio:21/9}
-  .jy-lineup-list>li .thumbnail{flex-basis:120px;width:120px}
+  .jy-lineup-list>li.item .thumbnail{flex-basis:120px;width:120px}
 }
