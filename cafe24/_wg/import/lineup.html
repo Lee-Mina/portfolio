@@ -1,0 +1,41 @@
+<!------------------------------------------------------------------
+    LINE UP 섹션  ·  피처 배너 + 메인 상품 진열(가로형 행)
+    ------------------------------------------------------------------
+    구성 : ① 타이틀  ② 피처 이미지(오버레이 카피)  ③ product_listmain 상품
+    · 상품은 [상품 → 메인 진열]에 담으면 자동 노출(모듈이 채움).
+    · 피처 이미지는 아래 src 직접 수정하거나, 배너관리(lineup_ms)로 교체 가능.
+    · 스타일 : jy-lineup.css + jy-prdcard.css(상품 이름/가격) 필요.
+    · 진열 그룹 번호(product_listmain_3)는 다른 메인 진열과 겹치지 않게 사용하세요.
+------------------------------------------------------------------->
+<!--@css(/_wg/css/jy-lineup.css)-->
+
+<section class="jy-sec jy-lineup">
+    <div class="-frame">
+        <div class="jy-sec-head left">
+            <div><span class="jy-eyebrow">LINE UP</span></div>
+        </div>
+
+        <!-- ② 피처 배너 -->
+        <a class="jy-lineup-feature" href="/product/list.html">
+            <img src="/_wg/img/lineup.jpg" alt="라인업" onerror="this.style.display='none';this.parentNode.classList.add('noimg');">
+            <span class="jy-lineup-cap">
+                <strong>피부가 기억하는 가장 맑은 순간</strong>
+                <em>매일 마주하는 내 피부의 기분 좋은 터닝포인트</em>
+            </span>
+        </a>
+
+        <!-- ③ 상품 : 메인 상품 진열 모듈 -->
+        <div module="product_listmain_3" class="ec-base-product lazy">
+            <!--
+                $count = 6
+                $moreview = no
+                $cache = yes
+                $basket_result = /product/add_basket.html
+                $basket_option = /product/basket_option.html
+            -->
+            <ul class="prdList jy-lineup-list" grid-pc="1" grid-tb="1" grid-mo="1">
+                <!--@import(/_wg/import/prdList.html)-->
+            </ul>
+        </div>
+    </div>
+</section>
