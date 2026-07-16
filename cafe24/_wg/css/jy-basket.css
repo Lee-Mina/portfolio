@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* ============================================================
+   장바구니(/order/basket.html) 프로토타입 룩  ·  jy-basket.css
+   ------------------------------------------------------------
+   · 마크업/모듈/{$변수}/클래스명은 하나도 수정하지 않습니다. (CSS만)
+   · 기존 카페24 클래스(.ec-base-prdInfo / .ec-base-qty / .totalSummary …)를
+     스타일가이드 토큰으로 프로토타입 카트 디자인에 맞춥니다.
+   · basket.html 에서 jy-pages.css 다음에 로드하세요.
+     <!--@css(/_wg/css/jy-basket.css)-->
+   ============================================================ */
+
+/* ── 페이지 타이틀 ── */
+#titleArea{padding:20px 0 10px;border:0;margin:0 0 8px}
+#titleArea h2{font-size:var(--t-title-l);line-height:var(--t-title-l-lh);
+  font-weight:var(--fw-bold);letter-spacing:-.02em;color:var(--ink)}
+
+/* ── 국내/해외 탭 ── */
+.ec-base-tab ul{border-bottom:1px solid var(--line)}
+.ec-base-tab li a{color:var(--muted);font-weight:var(--fw-medium)}
+.ec-base-tab li.selected a{color:var(--ink);font-weight:var(--fw-bold);border:0;border-bottom:2px solid var(--ink);background:none}
+.ec-base-tab .number{color:inherit}
+
+/* ── 그룹 접기 헤더 ── */
+.ec-base-fold.theme1{border:0}
+.ec-base-fold.theme1>.title{background:none;padding:16px 0 6px}
+.ec-base-fold.theme1>.title h2{font-size:var(--t-body-l);font-weight:var(--fw-bold);color:var(--ink)}
+.ec-base-fold.theme3>.title{background:none;padding:18px 0 6px}
+.ec-base-fold.theme3>.title h3{font-size:var(--t-body-m);font-weight:var(--fw-semibold);color:var(--ink)}
+
+/* ── 상품 아이템 카드 ── */
+.ec-base-prdInfo{position:relative;border:0;border-bottom:1px solid var(--line-2);
+  border-radius:0;padding:20px 0;margin:0;background:none}
+.ec-base-prdInfo>input[type="checkbox"]{margin:0 0 10px}
+.ec-base-prdInfo .prdBox{display:flex;gap:16px;min-height:0;margin:0}
+.ec-base-prdInfo .thumbnail{width:96px;height:96px;flex-shrink:0;margin:0;border:0;
+  border-radius:var(--r-md);overflow:hidden;background:var(--img-bg)}
+.ec-base-prdInfo .thumbnail img{width:100%;height:100%;object-fit:cover}
+.ec-base-prdInfo .description{flex:1;min-width:0}
+.ec-base-prdInfo .description .prdName{margin:0 0 6px}
+.ec-base-prdInfo .description .prdName a,
+.ec-base-prdInfo .description .prdName span{font-size:var(--t-body-s);font-weight:var(--fw-semibold);
+  color:var(--ink);letter-spacing:-.01em}
+.ec-base-prdInfo .description .info{margin:0}
+.ec-base-prdInfo .description .info>li{font-size:var(--t-caption);color:var(--muted);margin:0 0 4px}
+.ec-base-prdInfo .description .info .price{margin:6px 0 0}
+.ec-base-prdInfo .description .info .price li{font-size:var(--t-body-s);color:var(--ink)}
+.ec-base-prdInfo .description .info .price strong{font-weight:var(--fw-bold);color:var(--ink)}
+
+/* 강조/경고 색을 브랜드 토큰으로 */
+.txtWarn,.ec-base-prdInfo .txtWarn{color:var(--ci-red) !important}
+.txtEm,.ec-base-prdInfo .txtEm{color:var(--ci-red) !important}
+.refer{color:var(--muted)}
+
+/* ── 수량 스텝퍼 ── */
+.ec-base-prdInfo .ec-base-qty{display:inline-flex;align-items:center;margin:8px 0 0;
+  border:1px solid var(--line);border-radius:var(--r-btn);overflow:hidden;width:auto}
+.ec-base-qty img{display:none}
+.ec-base-qty .qtyDown,.ec-base-qty .qtyUp,
+.ec-base-qty .QuantityDown,.ec-base-qty .QuantityUp{position:static;display:inline-flex;align-items:center;
+  justify-content:center;width:32px;height:32px;color:var(--ink);font-size:16px;line-height:1}
+.ec-base-qty .qtyDown:before,.ec-base-qty .QuantityDown:before{content:"−"}
+.ec-base-qty .qtyUp:before,.ec-base-qty .QuantityUp:before{content:"+"}
+.ec-base-qty .qtyDown:hover,.ec-base-qty .qtyUp:hover{color:var(--ci-red)}
+.ec-base-qty input[type="text"],.ec-base-qty input[type="tel"],.ec-base-qty input[type="number"]{
+  width:36px;height:32px;min-height:0;text-align:center;border:0;border-left:1px solid var(--line);
+  border-right:1px solid var(--line);background:#fff;font-weight:var(--fw-semibold);border-radius:0}
+.ec-base-qty .btnBasic{margin:0 0 0 8px}
+
+/* ── 옵션 ── */
+.ec-base-prdInfo .option{margin:10px 0 0}
+.ec-base-prdInfo .option .optionDesc{font-size:var(--t-caption);color:var(--ink-2)}
+
+/* ── 아이템 버튼줄 ── */
+.ec-base-prdInfo .ec-base-button{margin:14px 0 0}
+
+/* ── 버튼(공통) : 브랜드 톤 ── */
+.btnStrong,.btnSubmit,.btnEm{background:var(--ci-red);border:1px solid var(--ci-red);color:#fff}
+.btnStrong:hover,.btnSubmit:hover,.btnEm:hover{background:var(--ci-red-hover);border-color:var(--ci-red-hover)}
+.btnNormal{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btnNormal:hover{border-color:var(--ink)}
+.btnBasic{background:var(--soft);border:1px solid var(--line);color:var(--ink-2)}
+
+/* ── 전체선택/선택삭제/견적 바 ── */
+.ec-base-button.typeMulti{border:0;padding:14px 0;border-top:1px solid var(--line)}
+
+/* ── 무료배송 진행바 ── */
+.delivery_price_progress{margin:16px 0;padding:16px 18px;background:var(--soft);border-radius:var(--r-card)}
+.delivery_price_progress .message{font-size:var(--t-caption);color:var(--ink-2);margin:0 0 10px}
+.delivery_price_progress .remain,.delivery_price_progress .highlight{color:var(--ci-red);font-weight:var(--fw-bold)}
+.delivery_price_progress .bar-container{height:8px;background:var(--line);border-radius:var(--r-pill);overflow:hidden}
+.delivery_price_progress .bar-fill{height:100%;background:var(--ci-red);border-radius:var(--r-pill);transition:width .4s ease}
+.delivery_price_progress .bar-scale{display:flex;justify-content:space-between;margin-top:6px;
+  font-size:var(--t-label);color:var(--muted)}
+
+/* ── 총 주문금액 요약 카드 ── */
+.totalSummary{background:var(--soft);border-radius:var(--r-card);padding:20px 22px;margin:16px 0}
+.totalSummary .total{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:var(--t-body-m);font-weight:var(--fw-semibold);color:var(--ink)}
+.totalSummary .total .paymentPrice{font-size:var(--t-title-m);line-height:1.2;
+  font-weight:var(--fw-bold);color:var(--ci-red);letter-spacing:-.02em}
+.totalSummary .total .paymentPrice strong{font-weight:var(--fw-bold)}
+.totalSummary .ec-base-fold{border:0}
+.totalSummary .ec-base-fold.theme2>.title,
+.totalSummary .title.shipping{background:none;padding:12px 0;display:flex;
+  justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);margin-top:6px}
+.totalSummary .ec-base-fold.theme2>.title h3,
+.totalSummary .title.shipping h3{font-size:var(--t-caption);font-weight:var(--fw-medium);color:var(--ink-2)}
+.totalSummary .ec-base-fold.theme2>.title p,
+.totalSummary .title.shipping>div{font-size:var(--t-body-s);font-weight:var(--fw-semibold);color:var(--ink)}
+.totalSummary .totalMileage .total{font-size:var(--t-caption);font-weight:var(--fw-medium);color:var(--ink-2)}
+.totalSummary .totalMileage .numMileage strong{color:var(--ci-red);font-weight:var(--fw-bold)}
+
+/* ── 하단 고정 주문 버튼 ── */
+.ec-base-button.gColumn{display:flex;gap:8px}
+.ec-base-button.gColumn .btnEm{background:#fff;border:1px solid var(--ink);color:var(--ink)}
+.ec-base-button.gColumn .btnEm:hover{background:var(--ink);color:#fff}
+.ec-base-button.gColumn .btnSubmit{background:var(--ci-red);border-color:var(--ci-red);color:#fff}
+.ec-base-button.gFixed{background:#fff;border:0;padding:10px 16px;
+  box-shadow:0 -4px 14px rgba(0,0,0,.06)}
+.ec-base-button.gFixed .state{font-size:var(--t-caption);color:var(--ink-2)}
+.ec-base-button.gFixed .count strong,.ec-base-button.gFixed .price em{color:var(--ci-red);font-weight:var(--fw-bold)}
+
+/* 하단 네비(.jy-bottomnav)와 겹치지 않도록 위로 올림 */
+@media all and (max-width:960px){
+  .ec-base-button.gFixed{bottom:calc(58px + env(safe-area-inset-bottom,0))}
+}
+
+/* ── 도움말 ── */
+.ec-base-help,.ec-base-help li{font-size:var(--t-label);color:var(--muted)}

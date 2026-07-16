@@ -1,0 +1,67 @@
+@charset "utf-8";
+/* ============================================================
+   상품 카드  ·  jy-prdcard.css   (Figma "Product Card / Default")
+   실제 마크업(cp520)의 클래스를 그대로 겨냥합니다 — 마크업 수정 불필요.
+   .prdList > li.item > .thumbnail(.best_ico/.num_ico/.-likeButton/img)
+                      > .info_wrap > .info > .proName / .spec
+   ------------------------------------------------------------
+   스펙 : 이미지 1:1·radius 16·bg #F6F6F8·그림자 없음
+          뱃지 height 28·radius 999   ·  상품명 Title/M 2줄  ·  스펙 Body/M 2줄
+   ============================================================ */
+
+/* 카드 (그리드 컬럼 수는 테마 grid 클래스가 담당 — 여기선 카드 내부만) */
+.prdList>li.item{display:flex;flex-direction:column;gap:12px;background:none}
+.prdList>li.item>.info_wrap{display:block;text-decoration:none;color:inherit}
+
+/* 상품 이미지 : 1:1 · 라운드 · 그림자 없음 */
+.prdList>li.item .thumbnail{position:relative;margin:0;border-radius:var(--r-card);
+  overflow:hidden;background:var(--img-bg);box-shadow:none}
+.prdList>li.item .thumbnail>a{display:block}
+.prdList>li.item .thumbnail img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border:0}
+
+/* 뱃지 : BEST(빨강) / 순위번호(잉크) */
+.prdList .best_ico,.prdList .num_ico{position:absolute;top:10px;left:10px;z-index:2;
+  display:inline-flex;align-items:center;justify-content:center;height:28px;padding:0 12px;
+  border-radius:var(--r-pill);font-size:var(--t-label);font-weight:var(--fw-semibold);
+  letter-spacing:.02em;line-height:1;color:#fff;background:var(--ci-red)}
+.prdList .num_ico{width:28px;padding:0;background:var(--ink)}
+
+/* 찜 버튼 (우측 상단) */
+.prdList .-likeButton{position:absolute;top:8px;right:8px;z-index:2}
+.prdList .-likeButton button{display:inline-flex;align-items:center;gap:3px;height:30px;padding:0 9px;
+  border:0;border-radius:var(--r-pill);background:rgba(255,255,255,.92);color:var(--ink);
+  font-size:var(--t-label);cursor:pointer}
+.prdList .-likeButton strong{font-weight:var(--fw-semibold)}
+
+/* 할인 타이머 (있을 때만) */
+.prdList .discountCounter{position:absolute;left:10px;bottom:10px;z-index:2}
+.prdList .discountCounter:empty{display:none}
+
+/* 텍스트 */
+.prdList>li.item .info{display:flex;flex-direction:column;gap:6px}
+
+/* 상품명 : Title/M, 최대 2줄 */
+.prdList .proName{font-size:var(--t-title-m);line-height:var(--t-title-m-lh);font-weight:var(--fw-semibold);
+  letter-spacing:-.01em;color:var(--ink);margin:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prdList .proName .title{color:var(--ci-red);font-weight:var(--fw-semibold)}   /* 상품명 앞 라벨 */
+
+/* 스펙 : Body/M, Ink Secondary, 최대 2줄 */
+.prdList .spec{font-size:var(--t-body-m);line-height:var(--t-body-m-lh);color:var(--ink-2);
+  margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prdList .spec li{margin:0}
+.prdList .spec .title{font-weight:var(--fw-medium);color:var(--ink-2)}
+
+/* 가격 : Price/S (가격 요소가 있는 다른 진열 변형용) */
+.prdList .price{font-size:var(--t-price-s);line-height:var(--t-price-s-lh);
+  font-weight:var(--fw-bold);letter-spacing:-.01em;color:var(--ci-red);margin:0}
+.prdList .price .strike,.prdList .price .discount{font-size:var(--t-caption);
+  font-weight:var(--fw-regular);color:var(--muted);text-decoration:line-through}
+
+/* (선택) 직접 넣는 뱃지/카테고리 라벨 */
+.jy-badge{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:var(--r-pill);
+  font-size:var(--t-label);font-weight:var(--fw-semibold);letter-spacing:.02em;color:#fff;background:var(--ink)}
+.jy-badge.best{background:var(--ci-red)}
+.jy-badge.sale{background:var(--oak);color:var(--ink)}
+.jy-cate{font-size:var(--t-body-m);font-weight:var(--fw-medium);color:var(--ci-red);
+  text-transform:uppercase;margin:0}

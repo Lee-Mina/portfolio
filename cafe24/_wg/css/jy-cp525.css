@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* ============================================================
+   cp525(금주의 잘나가는 아이템) 타이틀을 디자인시스템에 맞춤
+   · 기능(배너/캐러셀/상품진열) 스타일은 cp525/cp307 style.css 가 담당.
+   · 여기서는 섹션 여백과 타이틀(eyebrow+heading)만 토큰으로 통일.
+   · jy-main.css 가 없는 페이지에서도 동작하도록 자체 정의.
+   ============================================================ */
+.cp525.jy-sec{padding:76px 0}
+.cp525 .jy-sec-head{text-align:left;margin-bottom:32px}
+.cp525 .jy-sec-head .move-tit{display:block}
+.cp525 .jy-eyebrow{display:block;margin-bottom:6px;font-size:var(--t-eyebrow);line-height:var(--t-eyebrow-lh);
+  font-weight:var(--fw-medium);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.cp525 .jy-sec-h{font-size:var(--t-heading-l);line-height:var(--t-heading-l-lh);
+  font-weight:var(--fw-bold);letter-spacing:-.01em;color:var(--ink);margin:0}
+
+@media all and (max-width:768px){
+  .cp525.jy-sec{padding:40px 0}
+  .cp525 .jy-sec-head{margin-bottom:22px}
+  .cp525 .jy-sec-h{font-size:var(--t-heading-m);line-height:var(--t-heading-m-lh)}
+}

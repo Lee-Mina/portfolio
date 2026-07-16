@@ -1,0 +1,54 @@
+<!----------------------------------------------------------------------------------------------------------------------------------------
+
+	### cp525 (금주의 잘나가는 아이템7) ###  ── 디자인시스템(jy) 클래스 적용본
+
+	===== 설정 =====
+	탭명변경 : 상품관리 > 상품관리 > 메인 상품 진열관리 > (우측)메인분류 관리버튼 클릭후 수정가능합니다.( * 메인분류 절대 삭제금지!!! )
+	상품등록 : 상품관리 > 상품관리 > 메인 상품 진열관리 > (우측)메인분류 > 탭-01 ~ 탭-05 에 상품을 넣어주세요.
+	디자인 삭제 : ON/OFF 기능으로 숨김가능. (매뉴얼참조)
+	옵션설정 : 아래 option.js 에서 변경가능
+
+	※ 기능 클래스(cp525 / owl-carousel / js-banner-module / module / item_list / cp520 import)는
+	  절대 이름을 바꾸지 마세요. 타이틀만 디자인시스템(jy-sec-head)에 맞췄고, 애니메이션(move-tit)은 유지합니다.
+
+--------------------------------------------------------------------------------------------------------------------------------------->
+
+
+<!--@js(/_wg/_cPack/cp525/option.js)-->
+<!--@css(/_wg/_cPack/cp525/style.css)-->
+<!--@css(/_wg/_cPack/cp307/style.css)-->
+<!--@css(/_wg/css/jy-cp525.css)--><!-- ★ 디자인 통일용(추가) -->
+<div class="cp525 jy-sec -frame move-page lazy">
+
+    <!-- 타이틀 : eyebrow + heading (다른 섹션과 동일) · 스크롤 애니메이션 move-tit 유지 -->
+    <div class="jy-sec-head left">
+        <div class="move-tit">
+            <span class="jy-eyebrow">LIFESTYLE</span>
+            <h2 class="jy-sec-h">일도, 쉼도 편안하게</h2>
+        </div>
+    </div>
+
+    <!-- 슬라이드배너 -->
+    <div class="cp307_slide -scale-xs" js-banner-module="cp307_slide_ms" js-hide>
+        <div class="owl-carousel ul  normal">
+            <li js-banner><a href="{$js-href}" target="{$js-target}">{$js-banner}</a></li>
+            <li js-banner><a href="{$js-href}" target="{$js-target}">{$js-banner}</a></li>
+        </div>
+    </div>
+     <!-- 이미지 배너3 -->
+<section js-banner-module="cp307_3_ms" js-hide>
+        <a js-banner href="{$js-href}" target="{$js-target}" class="-scale-xs">{$js-banner}</a>
+
+    </section>
+    <ul class="owl-carousel ul grid5">
+        <li data-text="{$category_title_text}" module="product_listmain_1">
+            <!--
+            $count = 7
+            -->
+            <div class="item_list">
+                <!--@import(/_wg/_cPack/cp520/list_1_6.html)-->
+            </div>
+        </li>
+
+    </ul>
+</div>

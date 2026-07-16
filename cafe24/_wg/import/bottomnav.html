@@ -1,0 +1,14 @@
+<!------------------------------------------------------------------
+    하단 고정 내비게이션  ·  모바일(≤960) 전용
+    ------------------------------------------------------------------
+    · 레이아웃(main.html)의 </body> 직전, #wrap 바깥에서 인클루드하세요.
+    · PC에서는 CSS(header.css .jy-bottomnav)로 자동 숨김됩니다.
+    · 아이콘은 이 스킨이 로드하는 XEIcon(xi-*) 을 사용합니다.
+------------------------------------------------------------------->
+<nav class="jy-bottomnav">
+    <a href="/" class="jy-bn-item"><i class="xi-home"></i><span>홈</span></a>
+    <a href="#none" class="jy-bn-item jy-catmenu-open"><i class="xi-apps"></i><span>카테고리</span></a>
+    <a href="/myshop/recent.html" class="jy-bn-item"><i class="xi-time-o"></i><span>최근본상품</span></a>
+    <a href="/order/basket.html" class="jy-bn-item"><i class="xi-cart-o"></i><span class="jy-bn-badge" id="jyBnCart" style="display:none;">0</span><span>장바구니</span></a>
+    <a href="/myshop/" class="jy-bn-item"><i class="xi-user-o"></i><span>MY</span></a>
+</nav>
