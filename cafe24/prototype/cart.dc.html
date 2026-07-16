@@ -1,0 +1,318 @@
+<!------------------------------------------------------------------
+    장바구니 (Figma Make 프로토타입)  ·  스타일가이드 토큰 + 클래스 적용본
+    ------------------------------------------------------------------
+    · 인라인 스타일 → 클래스, 하드코딩 색상 → 토큰(var), ti → xi(XEIcon)
+    · 하단 네비는 기존 컴포넌트 클래스(.jy-bottomnav / .jy-bn-item) 재사용
+    · DCLogic 스크립트 / sc-for / sc-if / {{ }} 바인딩은 그대로 유지
+    · 위쪽 헤더/페이지 타이틀이 원본에 있었다면 그대로 두고, 아래 구조로 교체하세요.
+------------------------------------------------------------------->
+<x-dc>
+<style data-dc-style>
+  /* ── 토큰 : jy-tokens.css 를 로드하면 자동 상속, 아니면 아래 폴백(스타일가이드 값) 사용 ── */
+  :root{
+    --ci-red:#E6002D; --ci-red-hover:#C50026; --ci-red-tint:#FFF1F2;
+    --ink:#111111; --ink-2:#3A3A40; --muted:#767680; --muted-2:#9494A0;
+    --line:#ECECEC; --line-2:#F0F0F1; --img-bg:#F6F6F8; --soft:#F9F9FA; --dark:#17171A;
+    --r-card:16px; --r-md:12px; --r-btn:8px; --r-pill:999px;
+    --fw-medium:500; --fw-semibold:600; --fw-bold:700;
+    --font:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  }
+  .jy-cart,.jy-cart *{box-sizing:border-box;font-family:var(--font)}
+
+  /* 레이아웃 */
+  .jy-cart{max-width:1280px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 60px}
+  .jy-cart-grid{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start}
+
+  /* 상단 전체선택 바 */
+  .jy-cart-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    padding-bottom:16px;border-bottom:1px solid var(--ink);margin-bottom:6px}
+  .jy-cart-all{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:var(--fw-medium);cursor:pointer}
+  .jy-cart-tools{display:flex;align-items:center;gap:14px}
+  .jy-cart-del{font-size:13px;color:var(--muted-2);cursor:pointer;text-decoration:underline}
+  .jy-cart-del:hover{color:var(--ink)}
+  .jy-cart-compare{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:var(--fw-semibold);
+    text-decoration:none;white-space:nowrap}
+  .jy-cart-compare i{font-size:14px}
+
+  /* 상품 아이템 */
+  .jy-cart-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--line-2)}
+  .jy-cart-item .chk{margin-top:4px}
+  .jy-cart-thumb{width:96px;height:96px;flex-shrink:0;border-radius:var(--r-md);overflow:hidden;background:var(--img-bg)}
+  .jy-cart-thumb image-slot,.jy-cart-thumb img{width:100%;height:100%;object-fit:cover}
+  .jy-cart-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+  .jy-cart-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .jy-cart-name-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .jy-cart-name{font-size:15px;font-weight:var(--fw-semibold);letter-spacing:-.01em;color:var(--ink)}
+  .jy-tag-custom{font-size:10px;font-weight:var(--fw-bold);color:var(--ci-red);background:var(--ci-red-tint);
+    border-radius:4px;padding:3px 7px}
+  .jy-cart-remove{font-size:17px;color:var(--muted-2);cursor:pointer;flex-shrink:0}
+  .jy-cart-remove:hover{color:var(--ink)}
+  .jy-cart-spec{font-size:13px;color:var(--muted)}
+  .jy-cart-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:6px}
+
+  /* 수량 스텝퍼 */
+  .jy-qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:var(--r-btn)}
+  .jy-qty button{width:30px;height:30px;border:none;background:transparent;cursor:pointer;font-size:15px;
+    color:var(--ink);font-family:inherit}
+  .jy-qty button:hover{color:var(--ci-red)}
+  .jy-qty .num{width:32px;text-align:center;font-size:14px;font-weight:var(--fw-semibold)}
+  .jy-cart-linetotal{font-size:17px;font-weight:var(--fw-bold);letter-spacing:-.01em;color:var(--ink)}
+  .jy-cart-linetotal .won{font-size:12px;font-weight:var(--fw-medium)}
+
+  /* 우측 결제요약 */
+  .jy-cart-summary{position:sticky;top:96px;background:var(--soft);border-radius:var(--r-card);padding:24px}
+  .jy-sum-title{font-size:16px;font-weight:var(--fw-bold);letter-spacing:-.01em;margin-bottom:18px}
+  .jy-sum-row{display:flex;justify-content:space-between;font-size:14px;color:var(--ink-2);padding:8px 0}
+  .jy-sum-total{border-top:1px solid var(--line);margin:12px 0;padding-top:14px;display:flex;
+    justify-content:space-between;align-items:baseline}
+  .jy-sum-total .lbl{font-size:15px;font-weight:var(--fw-semibold)}
+  .jy-sum-total .val{font-size:22px;font-weight:var(--fw-bold);letter-spacing:-.02em}
+  .jy-sum-total .won{font-size:13px;font-weight:var(--fw-medium)}
+
+  /* 버튼 */
+  .jy-btn{display:block;text-align:center;width:100%;border:none;border-radius:var(--r-btn);height:52px;
+    line-height:52px;font-size:15px;font-weight:var(--fw-semibold);text-decoration:none;box-sizing:border-box;cursor:pointer}
+  .jy-btn.red{background:var(--ci-red);color:#fff;margin-top:6px}
+  .jy-btn.red:hover{background:var(--ci-red-hover)}
+  .jy-cart-continue{display:block;text-align:center;margin-top:12px;font-size:13px;color:var(--muted);text-decoration:none}
+  .jy-cart-continue:hover{color:var(--ink)}
+
+  /* 빈 장바구니 */
+  .jy-cart-empty{max-width:1080px;margin:0 auto;padding:100px clamp(16px,4vw,40px) 60px;text-align:center}
+  .jy-cart-empty i{font-size:48px;color:#C8C8CC}
+  .jy-cart-empty .t{font-size:17px;font-weight:var(--fw-semibold);margin:18px 0 8px}
+  .jy-cart-empty .d{font-size:14px;color:var(--muted);margin-bottom:24px}
+  .jy-cart-empty a{display:inline-block;background:var(--ci-red);color:#fff;text-decoration:none;
+    border-radius:var(--r-btn);padding:13px 28px;font-size:14px;font-weight:var(--fw-semibold)}
+  .jy-cart-empty a:hover{background:var(--ci-red-hover)}
+
+  /* 푸터 */
+  .jy-cart-foot{background:var(--dark);color:rgba(255,255,255,.6)}
+  .jy-cart-foot .in{max-width:1280px;margin:0 auto;padding:48px clamp(16px,4vw,40px) 32px}
+  .jy-cart-foot .brand{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+  .jy-cart-foot .logo{width:22px;height:22px;background:var(--ci-red);border-radius:5px;display:flex;
+    align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:var(--fw-bold)}
+  .jy-cart-foot .name{font-size:15px;font-weight:var(--fw-bold);color:#fff;letter-spacing:-.04em}
+  .jy-cart-foot .biz{font-size:12px;color:rgba(255,255,255,.4);line-height:1.8}
+
+  /* 반응형 */
+  @media all and (max-width:768px){
+    .jy-cart-grid{grid-template-columns:1fr;gap:24px}
+    .jy-cart-summary{position:static}
+  }
+</style>
+
+<!-- ============ CART (상품 있음) ============ -->
+<sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+  <div class="jy-cart">
+    <div class="jy-cart-grid">
+
+      <!-- LEFT: item list -->
+      <div style="min-width:0">
+        <div class="jy-cart-bar">
+          <label class="jy-cart-all">
+            <input type="checkbox" checked="{{ allChecked }}" onChange="{{ toggleAll }}"></input>전체선택 ({{ checkedCount }}/{{ itemCount }})
+          </label>
+          <div class="jy-cart-tools">
+            <span onClick="{{ removeChecked }}" class="jy-cart-del">선택삭제</span>
+            <a href="상품 비교.dc.html" class="jy-cart-compare" style="color:{{ compareLinkColor }};pointer-events:{{ comparePointer }}">
+              <i class="xi-shuffle"></i><span>선택 비교하기 ({{ checkedCount }})</span>
+            </a>
+          </div>
+        </div>
+
+        <sc-for list="{{ cartItems }}" as="item" hint-placeholder-count="3">
+          <div class="jy-cart-item">
+            <input type="checkbox" class="chk" checked="{{ item.checked }}" onChange="{{ item.toggleCheck }}"></input>
+            <div class="jy-cart-thumb">
+              <image-slot id="{{ item.imgId }}" shape="rect" placeholder="제품 이미지"></image-slot>
+            </div>
+            <div class="jy-cart-info">
+              <div class="jy-cart-top">
+                <div class="jy-cart-name-wrap">
+                  <span class="jy-cart-name">{{ item.name }}</span>
+                  <sc-if value="{{ item.isCustomBuild }}" hint-placeholder-val="{{ false }}">
+                    <span class="jy-tag-custom">직접 견적</span>
+                  </sc-if>
+                </div>
+                <i class="xi-close jy-cart-remove" onClick="{{ item.remove }}"></i>
+              </div>
+              <div class="jy-cart-spec">{{ item.spec }}</div>
+              <div class="jy-cart-row">
+                <div class="jy-qty">
+                  <button onClick="{{ item.dec }}">−</button>
+                  <span class="num">{{ item.qty }}</span>
+                  <button onClick="{{ item.inc }}">+</button>
+                </div>
+                <div class="jy-cart-linetotal">{{ item.lineTotalStr }}<span class="won">원</span></div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- RIGHT: order summary -->
+      <div class="jy-cart-summary">
+        <div class="jy-sum-title">결제 예상 금액</div>
+        <div class="jy-sum-row"><span>상품금액</span><span>{{ subtotalStr }}원</span></div>
+        <div class="jy-sum-row"><span>배송비</span><span>{{ shippingStr }}</span></div>
+        <div class="jy-sum-total">
+          <span class="lbl">총 결제금액</span>
+          <span class="val">{{ totalStr }}<span class="won">원</span></span>
+        </div>
+        <a href="주문서작성.dc.html" class="jy-btn red">구매하기 ({{ checkedCount }})</a>
+        <a href="#" class="jy-cart-continue">계속 쇼핑하기</a>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ============ EMPTY STATE ============ -->
+<sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+  <div class="jy-cart-empty">
+    <i class="xi-cart-o"></i>
+    <div class="t">장바구니가 비어있어요</div>
+    <div class="d">마음에 드는 상품을 담아보세요.</div>
+    <a href="상품 필터.dc.html">쇼핑 계속하기</a>
+  </div>
+</sc-if>
+
+<div style="height:{{ bottomPad }}"></div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="jy-cart-foot">
+  <div class="in">
+    <div class="brand">
+      <div class="logo">J</div><span class="name">JOOYON</span>
+    </div>
+    <div class="biz">
+      (주)주연테크 · 대표전화 1588-1118 · 서울특별시 서초구 사임당로 32 2층(서초동)<br>
+      사업자등록번호 116-81-23200 · 통신판매업 제2023-서울서초-1222호 · © 2026 JOOYON TECH. ALL RIGHTS RESERVED.
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MOBILE BOTTOM NAV (기존 컴포넌트 클래스 재사용) ============ -->
+<nav class="jy-bottomnav" style="display:{{ bottomNavDisplay }}">
+  <a href="#" class="jy-bn-item"><i class="xi-home"></i><span>홈</span></a>
+  <a href="#" class="jy-bn-item"><i class="xi-apps"></i><span>카테고리</span></a>
+  <a href="#" class="jy-bn-item"><i class="xi-time-o"></i><span>최근본상품</span></a>
+  <a href="#" class="jy-bn-item on"><i class="xi-cart-o"></i><span>장바구니</span></a>
+  <a href="#" class="jy-bn-item"><i class="xi-user-o"></i><span>MY</span></a>
+</nav>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    isMobile: false,
+    items: [
+      { imgId: 'cart-1', name: '주연테크 V27FX 27인치 100Hz', spec: '색상: 블랙', price: 129000, qty: 1, checked: true },
+      { imgId: 'cart-2', name: 'JY 오피스 프로 i5', spec: 'i5 · 16GB · 512GB SSD', price: 459000, qty: 1, checked: true },
+      { imgId: 'cart-3', name: 'JY 무접점 키보드 K3', spec: '색상: 화이트', price: 89000, qty: 2, checked: false }
+    ]
+  };
+
+  componentDidMount() {
+    this.mq = window.matchMedia('(max-width: 768px)');
+    this.updateMq = () => this.setState({ isMobile: this.mq.matches });
+    this.updateMq();
+    this.mq.addEventListener('change', this.updateMq);
+
+    const raw = window.localStorage.getItem('jy_custom_builds');
+    if (raw) {
+      try {
+        const builds = JSON.parse(raw);
+        if (Array.isArray(builds) && builds.length) {
+          const builtItems = builds.map(b => ({
+            imgId: 'build-thumb-' + b.id,
+            name: b.name,
+            spec: b.spec,
+            price: b.price,
+            qty: b.qty || 1,
+            checked: true,
+            isCustomBuild: true,
+            buildId: b.id
+          }));
+          this.setState(s => ({ items: [...builtItems, ...s.items] }));
+        }
+      } catch (e) {}
+    }
+  }
+
+  syncCustomBuilds(nextItems) {
+    const remaining = nextItems.filter(it => it.isCustomBuild).map(it => ({ id: it.buildId, name: it.name, spec: it.spec, price: it.price, qty: it.qty }));
+    window.localStorage.setItem('jy_custom_builds', JSON.stringify(remaining));
+  }
+
+  componentWillUnmount() {
+    this.mq.removeEventListener('change', this.updateMq);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const items = s.items;
+
+    const cartItems = items.map((it, i) => ({
+      ...it,
+      lineTotalStr: (it.price * it.qty).toLocaleString('ko-KR'),
+      toggleCheck: () => {
+        const next = [...items];
+        next[i] = { ...next[i], checked: !next[i].checked };
+        this.setState({ items: next });
+      },
+      inc: () => {
+        const next = [...items];
+        next[i] = { ...next[i], qty: next[i].qty + 1 };
+        this.setState({ items: next });
+        this.syncCustomBuilds(next);
+      },
+      dec: () => {
+        const next = [...items];
+        next[i] = { ...next[i], qty: Math.max(1, next[i].qty - 1) };
+        this.setState({ items: next });
+        this.syncCustomBuilds(next);
+      },
+      remove: () => {
+        const next = items.filter((_, idx) => idx !== i);
+        this.setState({ items: next });
+        this.syncCustomBuilds(next);
+      }
+    }));
+
+    const checkedItems = items.filter(it => it.checked);
+    const checkedCount = checkedItems.length;
+    const allChecked = items.length > 0 && checkedCount === items.length;
+    const subtotal = checkedItems.reduce((sum, it) => sum + it.price * it.qty, 0);
+    const shipping = subtotal > 0 && subtotal < 50000 ? 3000 : 0;
+    const total = subtotal + shipping;
+
+    return {
+      isMobile: s.isMobile,
+      desktopNavDisplay: s.isMobile ? 'none' : 'flex',
+      bottomNavDisplay: s.isMobile ? 'flex' : 'none',
+      bottomPad: s.isMobile ? '64px' : '0px',
+      itemCount: items.length,
+      hasItems: items.length > 0,
+      isEmpty: items.length === 0,
+      cartItems,
+      checkedCount,
+      allChecked,
+      toggleAll: () => {
+        const makeAll = !allChecked;
+        this.setState({ items: items.map(it => ({ ...it, checked: makeAll })) });
+      },
+      removeChecked: () => {
+        const next = items.filter(it => !it.checked);
+        this.setState({ items: next });
+        this.syncCustomBuilds(next);
+      },
+      compareLinkColor: checkedCount >= 2 ? '#E6002D' : '#C8C8CC',
+      comparePointer: checkedCount >= 2 ? 'auto' : 'none',
+      subtotalStr: subtotal.toLocaleString('ko-KR'),
+      shippingStr: shipping === 0 ? '무료' : shipping.toLocaleString('ko-KR') + '원',
+      totalStr: total.toLocaleString('ko-KR')
+    };
+  }
+}
+</script>

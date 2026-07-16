@@ -16,6 +16,7 @@ Figma "주연테크 리브랜딩" 스타일 가이드 기준. **클래스명은 
 | `_wg/import/catmenu.html` | `/_wg/import/catmenu.html` | 2단 카테고리 메뉴(모바일, **상품분류 자동 생성**) |
 | `_wg/import/lineup.html` + `_wg/css/jy-lineup.css` | `/_wg/import/…`, `/_wg/css/…` | LINE UP 섹션(피처 배너 + 메인 진열 가로형 상품) |
 | `_wg/_cPack/cp525/dom.html` + `_wg/css/jy-cp525.css` | `/_wg/_cPack/cp525/dom.html`, `/_wg/css/…` | cp525(금주의 아이템) 타이틀 디자인 통일(기능 클래스 유지) |
+| `prototype/cart.dc.html` | (Figma Make 프로토타입) | 장바구니: 인라인스타일→클래스+토큰, ti→xi, 하단네비 `.jy-bottomnav` 재사용 |
 
 ## 적용 순서
 1. **토큰 로드** — `base.html`(또는 공통 head) 최상단에 한 줄 추가:
